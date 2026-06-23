@@ -1,6 +1,6 @@
-# Yape Mocks - Framework de Testing
+# API Mocks - Framework de Testing
 
-[![GitHub](https://img.shields.io/badge/github-fwk--yape--mocks-blue)](https://github.com/elferjarenas/fwk-yape-mocks)
+[![GitHub](https://img.shields.io/badge/github-fwk--api--mocks-blue)](https://github.com/elferjarenas/fwk-api-mocks)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-green)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.x-blue)](https://www.typescriptlang.org/)
 
@@ -27,8 +27,8 @@ Mock service para APIs de múltiples squads (Mibanco, CIAM, Atlas, Cards) con so
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/elferjarenas/fwk-yape-mocks.git
-cd fwk-yape-mocks
+git clone https://github.com/elferjarenas/fwk-api-mocks.git
+cd fwk-api-mocks
 
 # Instalar dependencias
 npm install
@@ -403,7 +403,7 @@ Cuando `extraFields=true`, cada tarjeta incluye un array `products` con las cuen
 ## 📁 Estructura del Proyecto
 
 ```
-fwk-yape-mocks/
+fwk-api-mocks/
 ├── .husky/                    # Git hooks (commitizen, commitlint)
 ├── data/                      # Archivos YAML de seed
 │   ├── seed-test.yml         # Usuarios para tests (DEFAULT)
@@ -661,7 +661,7 @@ npm test              # 97/97 ✅
 **Health Check**:
 ```bash
 curl http://localhost:5050/yape/health
-# Response: {"status":"OK","service":"fwk-yape-mocks"}
+# Response: {"status":"OK","service":"fwk-api-mocks"}
 ```
 
 ## 📝 Agregar Nuevo Squad
@@ -811,7 +811,7 @@ Este proyecto es de uso interno de Yape.
 
 ---
 
-**Mantenido por**: Squad de Testing - Yape  
-**Repositorio**: [github.com/elferjarenas/fwk-yape-mocks](https://github.com/elferjarenas/fwk-yape-mocks)
+**Mantenido por**: Squad de Testing  
+**Repositorio**: [github.com/elferjarenas/fwk-api-mocks](https://github.com/elferjarenas/fwk-api-mocks)
 
 **Última actualización**: Junio 2026

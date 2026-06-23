@@ -33,6 +33,11 @@ cd fwk-yape-mocks
 # Instalar dependencias
 npm install
 
+# Instalar hooks de Git (Husky)
+npx husky install
+# o
+npm run prepare
+
 # Compilar TypeScript
 npm run build
 
@@ -48,6 +53,9 @@ El servidor estará disponible en `http://localhost:5050`
 # Instalar con hooks de Git
 npm install
 
+# Activar hooks de Husky (commitizen, pre-push)
+npx husky install
+
 # Modo desarrollo con hot-reload
 npm run start:dev
 
@@ -55,9 +63,26 @@ npm run start:dev
 AUTO_SEED=true npm run start:dev
 ```
 
+> **⚠️ Importante**: Si hiciste `git init` después de `npm install`, debes ejecutar `npx husky install` manualmente para activar los hooks de Git (validación de commits y pre-push tests).
+
 ## 📝 Sistema de Commits (Git Hooks)
 
 Este proyecto usa **Husky + Commitizen + Commitlint** para commits consistentes:
+
+### ⚙️ Activar hooks de Git
+
+Después de clonar el repositorio o hacer `git init`, activa los hooks:
+
+```bash
+npx husky install
+# o
+npm run prepare
+```
+
+Esto instalará automáticamente:
+- ✅ `commit-msg`: Valida formato lowercase
+- ✅ `prepare-commit-msg`: Abre Commitizen si mensaje inválido
+- ✅ `pre-push`: Corre `npm test` (97 tests) antes de push
 
 ### Crear commits de forma interactiva (RECOMENDADO)
 ```bash

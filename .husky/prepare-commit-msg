@@ -10,7 +10,7 @@ launch_cz() {
     : > "$MSG_FILE"
     if [ -r /dev/tty ]; then
         echo "💡 Abriendo Commitizen para ayudarte a crear un mensaje válido..."
-        cd fwk-yape-mocks && exec < /dev/tty && npx --no-install cz --hook || true
+        exec < /dev/tty && npx --no-install cz --hook || true
         exit 0
     else
         echo "💡 Terminal no disponible. Re-ejecuta sin -m para abrir Commitizen."
@@ -42,7 +42,7 @@ fi
 
 # Sin mensaje -> abrir Commitizen
 if [ -r /dev/tty ]; then
-    cd fwk-yape-mocks && exec < /dev/tty && npx --no-install cz --hook || true
+    exec < /dev/tty && npx --no-install cz --hook || true
 fi
 
 exit 0

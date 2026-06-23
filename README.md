@@ -646,13 +646,13 @@ npm test              # 97/97 ✅
 | **CIAM** | POST | `/cas/oidc/accessToken` | Token OIDC |
 | **CIAM** | POST | `/auth/oauth/v2/token` | Token OAuth |
 | **CIAM** | GET | `/ux-biom-mobile-facial-overview-v1/channel/biom/v1/mobile-facial-overview/facial-identifiers` | Identificadores faciales |
-| **Mibanco** | POST | `/creditos-api/sales/customer-offer/v1/lead/consultar` | Consultar oferta |
-| **Mibanco** | GET | `/creditos-api/servicing/servicing-order/v1/simulacion/obtener-dias-pago` | Obtener días de pago |
-| **Mibanco** | GET | `/creditos-api/servicing/servicing-order/v1/simulacion/generar` | Generar simulación |
-| **Mibanco** | POST | `/creditos-api/servicing/servicing-order/v1/simulacion/cotizar` | Cotizar préstamo |
-| **Mibanco** | POST | `/creditos-api/servicing/servicing-order/v1/orden-servicio/registrar` | Registrar orden |
-| **Testing** | POST | `/api/ChangeUserPersonality` | Cambiar personality de usuario |
-| **Testing** | GET | `/api/health` | Health check |
+| **Mibanco** | POST | `/creditos-yape/sales/customer-offer/v1/lead/consultar` | Consultar oferta |
+| **Mibanco** | GET | `/creditos-yape/servicing/servicing-order/v1/simulacion/obtener-dias-pago` | Obtener días de pago |
+| **Mibanco** | GET | `/creditos-yape/servicing/servicing-order/v1/simulacion/generar` | Generar simulación |
+| **Mibanco** | POST | `/creditos-yape/servicing/servicing-order/v1/simulacion/cotizar` | Cotizar préstamo |
+| **Mibanco** | POST | `/creditos-yape/servicing/servicing-order/v1/orden-servicio/registrar` | Registrar orden |
+| **Testing** | POST | `/yape/ChangeUserPersonality` | Cambiar personality de usuario |
+| **Testing** | GET | `/yape/health` | Health check |
 
 ### Servidor
 
@@ -660,7 +660,7 @@ npm test              # 97/97 ✅
 
 **Health Check**:
 ```bash
-curl http://localhost:5050/api/health
+curl http://localhost:5050/yape/health
 # Response: {"status":"OK","service":"fwk-api-mocks"}
 ```
 

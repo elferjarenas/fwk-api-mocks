@@ -1,0 +1,17 @@
+---
+# Performance Environment Overrides
+replicaCount: 3
+
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+  limits:
+    memory: "1Gi"
+    cpu: "1000m"
+
+autoscaling:
+  enabled: true
+  minReplicas: 5              # Aumentado de 3 a 5
+  maxReplicas: 20             # Aumentado de 10 a 20
+  targetCPUUtilizationPercentage: 60  # Más agresivo (antes 70)

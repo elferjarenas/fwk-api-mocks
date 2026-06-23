@@ -1,0 +1,78 @@
+---
+# Helm Chart Values
+# Uses: yaperos/helm-charts/yape-default
+
+deploymentCommand:
+  - "/bin/sh"
+  - "-c"
+  - "npm run start:prod"
+
+livenessProbe:
+  httpGet:
+    path: /testing/state
+    port: app-expose
+  initialDelaySeconds: 10
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /testing/state
+    port: app-expose
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+ingress_controller: nginx-f5
+
+ingresses:
+  - name: fwk-yape-mocks
+    paths:
+      - path: /fwk-yape-mocks/v1
+        pathType: Prefix
+        serviceName: fwk-yape-mocks
+        servicePort: 80
+
+serviceAccount:
+  name: vault-auth
+
+podAnnotations:
+  vault.hashicorp.com/role: 'vault-auth'
+  vault.hashicorp.com/agent-inject: "true"
+  vault.hashicorp.com/agent-init-first: "true"
+  vault.hashicorp.com/agent-pre-populate-only: "true"
+  vault.hashicorp.com/agent-inject-secret-vars: "app_envs/data/fwk-yape-mocks/vars"
+  vault.hashicorp.com/agent-inject-template-vars: |-
+    {{- with secret "app_envs/data/fwk-yape-mocks/vars" -}}
+    {{ range $k, $v := .Data.data }}
+    export {{ $k }}='{{ $v }}'
+    {{ end }}
+    {{- end -}}
+  vault.hashicorp.com/agent-inject-secret-secrets: 'app_envs/data/fwk-yape-mocks/secrets'
+  vault.hashicorp.com/agent-inject-template-secrets: |
+    {{- with secret "app_envs/data/fwk-yape-mocks/secrets" -}}
+    {{ range $k, $v := .Data.data }}
+    export {{ $k }}='{{ $v }}'
+    {{ end }}
+    {{- end -}}
+
+serviceMonitor:
+  enabled: true
+  endpoints:
+    path: /fwk-yape-mocks/v1/metrics
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70

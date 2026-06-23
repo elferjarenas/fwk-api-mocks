@@ -1,0 +1,41 @@
+{
+  "displayName": "All E2E Tests",
+  "preset": "ts-jest/presets/default-esm",
+  "testEnvironment": "node",
+  "roots": ["<rootDir>"],
+  "testMatch": ["**/*.e2e-spec.ts"],
+  "maxWorkers": 1,
+  "maxConcurrency": 1,
+  "bail": false,
+  "globalSetup": "<rootDir>/global-setup.ts",
+  "moduleNameMapper": {
+    "^(\\.{1,2}/.*)\\.js$": "$1",
+    "^@common/(.*)$": "<rootDir>/../src/common/$1",
+    "^@mibanco/(.*)$": "<rootDir>/../src/mibanco/$1",
+    "^@ciam/(.*)$": "<rootDir>/../src/ciam/$1",
+    "^@atlas/(.*)$": "<rootDir>/../src/atlas/$1",
+    "^@repository/(.*)$": "<rootDir>/../src/repository/$1",
+    "^@models/(.*)$": "<rootDir>/../src/types/$1"
+  },
+  "transform": {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        "useESM": true,
+        "tsconfig": {
+          "module": "ESNext",
+          "moduleResolution": "node"
+        }
+      }
+    ]
+  },
+  "extensionsToTreatAsEsm": [".ts"],
+  "collectCoverageFrom": [
+    "src/**/*.(t|j)s",
+    "!src/**/*.spec.ts",
+    "!src/**/*.mock.ts"
+  ],
+  "coverageDirectory": "./coverage",
+  "testTimeout": 30000,
+  "verbose": true
+}

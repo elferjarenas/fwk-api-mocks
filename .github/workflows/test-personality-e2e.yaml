@@ -1,0 +1,188 @@
+---
+# .github/workflows/test-personality-e2e.yaml
+#
+# End-to-end test: Change personality → Test API → Verify response
+
+name: Test Personality E2E
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to test"
+        required: true
+        type: choice
+        options:
+          - qa
+          - stg
+          - performance
+      
+      scenario:
+        description: "E2E scenario to test"
+        required: true
+        type: choice
+        options:
+          - unauthorized-401
+          - timeout-504
+          - lead-not-confirmed-202
+          - bad-request-400
+          - success-200
+          - all-scenarios
+
+run-name: >
+  E2E Test: ${{ github.event.inputs.scenario }} in
+  ${{ github.event.inputs.environment }} by @${{ github.actor }}
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set environment URL
+        id: set_url
+        run: |
+          case "${{ github.event.inputs.environment }}" in
+            qa)
+              echo "api_url=https://fwk-yape-mocks-qa.yaperos.com" >> $GITHUB_OUTPUT
+              ;;
+            stg)
+              echo "api_url=https://fwk-yape-mocks-stg.yaperos.com" >> $GITHUB_OUTPUT
+              ;;
+            performance)
+              echo "api_url=https://fwk-yape-mocks-perf.yaperos.com" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      - name: Test Unauthorized (401) Scenario
+        if: github.event.inputs.scenario == 'unauthorized-401' || github.event.inputs.scenario == 'all-scenarios'
+        run: |
+          echo "### 🧪 Testing 401 Unauthorized Scenario" >> $GITHUB_STEP_SUMMARY
+          
+          # 1. Set personality
+          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/yaperod_mibanco2@test-yape.com.pe" \
+            -H "Content-Type: application/json" \
+            -d '{"personality": "YPUNAUTHZ"}' \
+            -w "\n%{http_code}" -o /tmp/set_response.json
+          
+          echo "Personality set: $(cat /tmp/set_response.json)" >> $GITHUB_STEP_SUMMARY
+          
+          # 2. Test API
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            "${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar" \
+            -H "Content-Type: application/json" \
+            -H "X-User-Email: yaperod_mibanco2@test-yape.com.pe" \
+            -d '{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}')
+          
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n -1)
+          
+          # 3. Verify
+          if [ "$http_code" -eq 401 ]; then
+            echo "✅ **PASSED**: Got expected 401 Unauthorized" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`json" >> $GITHUB_STEP_SUMMARY
+            echo "$body" | jq . >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **FAILED**: Expected 401, got $http_code" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Test Timeout (504) Scenario
+        if: github.event.inputs.scenario == 'timeout-504' || github.event.inputs.scenario == 'all-scenarios'
+        run: |
+          echo "### 🧪 Testing 504 Timeout Scenario" >> $GITHUB_STEP_SUMMARY
+          
+          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/yaperod_mibanco3@test-yape.com.pe" \
+            -H "Content-Type: application/json" \
+            -d '{"personality": "YPTPLI020"}'
+          
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            "${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar" \
+            -H "Content-Type: application/json" \
+            -H "X-User-Email: yaperod_mibanco3@test-yape.com.pe" \
+            -d '{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}')
+          
+          http_code=$(echo "$response" | tail -n1)
+          
+          if [ "$http_code" -eq 504 ]; then
+            echo "✅ **PASSED**: Got expected 504 Timeout" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **FAILED**: Expected 504, got $http_code" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Test Lead Not Confirmed (202-e01) Scenario
+        if: github.event.inputs.scenario == 'lead-not-confirmed-202' || github.event.inputs.scenario == 'all-scenarios'
+        run: |
+          echo "### 🧪 Testing 202 Lead Not Confirmed Scenario" >> $GITHUB_STEP_SUMMARY
+          
+          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/yaperod_mibanco4@test-yape.com.pe" \
+            -H "Content-Type: application/json" \
+            -d '{"personality": "YPNOTCONF"}'
+          
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            "${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar" \
+            -H "Content-Type: application/json" \
+            -H "X-User-Email: yaperod_mibanco4@test-yape.com.pe" \
+            -d '{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}')
+          
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n -1)
+          
+          if [ "$http_code" -eq 202 ]; then
+            detail=$(echo "$body" | jq -r '.detail')
+            if [[ "$detail" == *"no se encuentra confirmado"* ]]; then
+              echo "✅ **PASSED**: Got expected 202 with correct message" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "❌ **FAILED**: Got 202 but wrong message: $detail" >> $GITHUB_STEP_SUMMARY
+              exit 1
+            fi
+          else
+            echo "❌ **FAILED**: Expected 202, got $http_code" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Test Success (200) Scenario
+        if: github.event.inputs.scenario == 'success-200' || github.event.inputs.scenario == 'all-scenarios'
+        run: |
+          echo "### 🧪 Testing 200 Success Scenario" >> $GITHUB_STEP_SUMMARY
+          
+          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/yaperod_mibanco1@test-yape.com.pe" \
+            -H "Content-Type: application/json" \
+            -d '{"personality": "YPMIBANCO"}'
+          
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            "${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar" \
+            -H "Content-Type: application/json" \
+            -H "X-User-Email: yaperod_mibanco1@test-yape.com.pe" \
+            -d '{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}')
+          
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n -1)
+          
+          if [ "$http_code" -eq 200 ]; then
+            # Verify response structure
+            status=$(echo "$body" | jq -r '.status')
+            codigoCliente=$(echo "$body" | jq -r '.data.codigoCliente')
+            
+            if [ "$status" == "200" ] && [ "$codigoCliente" == "3032596" ]; then
+              echo "✅ **PASSED**: Got expected 200 Success with correct data" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`json" >> $GITHUB_STEP_SUMMARY
+              echo "$body" | jq . >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "❌ **FAILED**: Got 200 but wrong data structure" >> $GITHUB_STEP_SUMMARY
+              exit 1
+            fi
+          else
+            echo "❌ **FAILED**: Expected 200, got $http_code" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Cleanup - Reset personalities
+        if: always()
+        run: |
+          curl -X POST "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/reset"
+          echo "🧹 Personalities reset to default" >> $GITHUB_STEP_SUMMARY

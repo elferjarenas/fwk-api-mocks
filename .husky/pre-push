@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+cd fwk-yape-mocks
+
+echo "→ Pre-push: corriendo TODOS los tests (103 tests)..."
+npm test
+status=$?
+
+if [ $status -ne 0 ]; then
+    echo "❌ Tests fallaron. Push bloqueado."
+    echo "   Tip: Corre 'npm test' localmente para debuggear"
+    exit 1
+else
+    echo "✅ Todos los tests pasaron. Push permitido."
+    exit 0
+fi

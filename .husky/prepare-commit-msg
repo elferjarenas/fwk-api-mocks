@@ -1,0 +1,48 @@
+#!/usr/bin/env sh
+MSG_FILE="$1"
+SOURCE="$2"
+
+# Primera línea no comentada como título
+TITLE="$(grep -v '^[[:space:]]*#' "$MSG_FILE" | head -n1 | tr -d '\r')"
+UPPER_REGEX='[A-ZÁÉÍÓÚÜÑ]'
+
+launch_cz() {
+    : > "$MSG_FILE"
+    if [ -r /dev/tty ]; then
+        echo "💡 Abriendo Commitizen para ayudarte a crear un mensaje válido..."
+        cd fwk-yape-mocks && exec < /dev/tty && npx --no-install cz --hook || true
+        exit 0
+    else
+        echo "💡 Terminal no disponible. Re-ejecuta sin -m para abrir Commitizen."
+        exit 1
+    fi
+}
+
+if [ -n "$TITLE" ]; then
+    TYPE_SCOPE="${TITLE%%:*}"
+    SUBJECT="${TITLE#*: }"
+    [ "$TITLE" = "$TYPE_SCOPE" ] && SUBJECT="$TITLE"
+    
+    # Validar lowercase en type/scope
+    if printf '%s' "$TYPE_SCOPE" | grep -q "$UPPER_REGEX"; then
+        echo "⛔ type/scope debe ser lowercase: '$TYPE_SCOPE'"
+        echo "   Ejemplo: feat(ciam): agregar endpoint oauth"
+        launch_cz
+    fi
+    
+    # Validar lowercase en subject
+    if printf '%s' "$SUBJECT" | grep -q "$UPPER_REGEX"; then
+        echo "⛔ El subject debe ser lowercase."
+        echo "   Actual: $SUBJECT"
+        launch_cz
+    fi
+    
+    exit 0
+fi
+
+# Sin mensaje -> abrir Commitizen
+if [ -r /dev/tty ]; then
+    cd fwk-yape-mocks && exec < /dev/tty && npx --no-install cz --hook || true
+fi
+
+exit 0

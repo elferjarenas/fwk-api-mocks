@@ -1,0 +1,88 @@
+---
+# .github/workflows/reset-personalities.yaml
+#
+# GitHub Action to reset all personalities to default (success)
+# Useful for cleaning up after testing
+
+name: Reset All Personalities
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to reset"
+        required: true
+        type: choice
+        options:
+          - qa
+          - stg
+          - performance
+          - local
+
+run-name: >
+  Reset all personalities to default (YPMIBANCO) in
+  ${{ github.event.inputs.environment }} by @${{ github.actor }}
+
+jobs:
+  reset-personalities:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set environment URL
+        id: set_url
+        run: |
+          case "${{ github.event.inputs.environment }}" in
+            qa)
+              echo "api_url=https://fwk-yape-mocks-qa.yaperos.com" >> $GITHUB_OUTPUT
+              ;;
+            stg)
+              echo "api_url=https://fwk-yape-mocks-stg.yaperos.com" >> $GITHUB_OUTPUT
+              ;;
+            performance)
+              echo "api_url=https://fwk-yape-mocks-perf.yaperos.com" >> $GITHUB_OUTPUT
+              ;;
+            local)
+              echo "api_url=http://localhost:8000" >> $GITHUB_OUTPUT
+              ;;
+            *)
+              echo "Invalid environment"
+              exit 1
+              ;;
+          esac
+
+      - name: Reset all personalities
+        run: |
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/reset" \
+            -H "Content-Type: application/json")
+          
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n -1)
+          
+          echo "Response: $body"
+          echo "HTTP Code: $http_code"
+          
+          if [ "$http_code" -eq 200 ]; then
+            echo "✅ All personalities reset successfully"
+            echo "$body" | jq .
+          else
+            echo "❌ Failed to reset personalities"
+            echo "$body"
+            exit 1
+          fi
+
+      - name: Summary
+        run: |
+          echo "### Personalities Reset Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All users in **${{ github.event.inputs.environment }}** have been reset to default personality: \`YPMIBANCO\` (200 Success)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Environment | \`${{ github.event.inputs.environment }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| API URL | \`${{ steps.set_url.outputs.api_url }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Reset By | @${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All users will now return **200 Success** responses." >> $GITHUB_STEP_SUMMARY

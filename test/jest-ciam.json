@@ -1,0 +1,26 @@
+{
+  "displayName": "CIAM E2E Tests",
+  "preset": "ts-jest/presets/default-esm",
+  "testEnvironment": "node",
+  "roots": ["<rootDir>/ciam"],
+  "testMatch": ["**/*.e2e-spec.ts"],
+  "moduleNameMapper": {
+    "^(\\.{1,2}/.*)\\.js$": "$1"
+  },
+  "transform": {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        "useESM": true,
+        "tsconfig": {
+          "module": "ESNext",
+          "moduleResolution": "node"
+        }
+      }
+    ]
+  },
+  "extensionsToTreatAsEsm": [".ts"],
+  "testTimeout": 30000,
+  "verbose": true,
+  "maxWorkers": 1
+}

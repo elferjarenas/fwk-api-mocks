@@ -1,0 +1,501 @@
+# Test-specific Users - Cards, CIAM, Atlas Test Users
+# These users are for isolated testing and should not be shared with performance tests
+
+users:
+  # ============================================
+  # Atlas Cards V4 Test Users (Sprint 1)
+  # ============================================
+  
+  # Usuario básico con 3 tarjetas (happy path)
+  - name: 'MARIA LOPEZ CARDS'
+    description: 'Usuario básico con 3 tarjetas para testing Cards V4'
+    data_in_bcp: 'true'
+    card_usage: 'bcp_card'
+    idc: '12345678'
+    cic: '00012345'
+    phone_number: '987654321'
+    email: 'cards_basic@test-yape.com.pe'
+    password: '999999'
+    personalities: ['YPCARD000']
+    cards:
+      - number: '4557881234567890'
+        status: '00'
+        expiry_date: '12/25'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+        accounts:
+          - number: '19312345678901'
+            type: 'CUENTAS DE AHORROS'
+            currency: 'soles'
+            balance: '5000.00'
+      - number: '4557889876543210'
+        status: '00'
+        expiry_date: '06/26'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+        accounts:
+          - number: '19398765432109'
+            type: 'CUENTAS DE AHORROS'
+            currency: 'soles'
+            balance: '10000.00'
+      - number: '4557885555666677'
+        status: '06'
+        expiry_date: '03/27'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: true
+        accounts:
+          - number: '19355556666771'
+            type: 'CUENTAS DE AHORROS'
+            currency: 'soles'
+            balance: '2000.00'
+
+  # Usuario sin tarjetas
+  - name: 'PEDRO SIN CARDS'
+    description: 'Usuario sin tarjetas para testing'
+    data_in_bcp: 'true'
+    idc: '98765432'
+    cic: '00098765'
+    phone_number: '912345678'
+    email: 'cards_none@test-yape.com.pe'
+    password: '999999'
+    personalities: ['YPCARD000']
+    cards: []
+
+  # Usuario con card para test de detalle
+  - name: 'JUAN PEREZ DETAIL'
+    description: 'Usuario con 1 tarjeta para testing detalle'
+    data_in_bcp: 'true'
+    idc: '55555555'
+    cic: '00055555'
+    phone_number: '955555555'
+    email: 'cards_detail@test-yape.com.pe'
+    password: '999999'
+    personalities: ['YPCARD000']
+    cards:
+      - number: '4557880000111122'
+        status: '00'
+        expiry_date: '09/28'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+        accounts:
+          - number: '19300001111221'
+            type: 'CUENTAS DE AHORROS'
+            currency: 'soles'
+            balance: '15000.00'
+      - number: '4557880000111133'
+        status: '00'
+        expiry_date: '12/27'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+        accounts:
+          - number: '19300001111222'
+            type: 'CUENTAS DE AHORROS'
+            currency: 'soles'
+            balance: '5000.00'
+
+  - name: 'CARLOS PAGINATION TEST'
+    description: 'Usuario con 20 tarjetas para testing paginación (15 en pág 1, 5 en pág 2)'
+    data_in_bcp: 'true'
+    idc: '88888888'
+    cic: '00088888'
+    phone_number: '988888888'
+    email: 'cards_pagination@test-yape.com.pe'
+    password: '999999'
+    personalities: ['YPCARD000']
+    cards:
+      - number: '4557880000000001'
+        status: '00'
+        expiry_date: '12/25'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000002'
+        status: '00'
+        expiry_date: '01/26'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+      - number: '4557880000000003'
+        status: '00'
+        expiry_date: '02/26'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000004'
+        status: '00'
+        expiry_date: '03/26'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+      - number: '4557880000000005'
+        status: '00'
+        expiry_date: '04/26'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000006'
+        status: '00'
+        expiry_date: '05/26'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+      - number: '4557880000000007'
+        status: '00'
+        expiry_date: '06/26'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000008'
+        status: '00'
+        expiry_date: '07/26'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+      - number: '4557880000000009'
+        status: '00'
+        expiry_date: '08/26'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000010'
+        status: '00'
+        expiry_date: '09/26'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+      - number: '4557880000000011'
+        status: '00'
+        expiry_date: '10/26'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000012'
+        status: '00'
+        expiry_date: '11/26'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+      - number: '4557880000000013'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000014'
+        status: '00'
+        expiry_date: '01/27'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+      - number: '4557880000000015'
+        status: '00'
+        expiry_date: '02/27'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000016'
+        status: '00'
+        expiry_date: '03/27'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+      - number: '4557880000000017'
+        status: '00'
+        expiry_date: '04/27'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000018'
+        status: '00'
+        expiry_date: '05/27'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+      - number: '4557880000000019'
+        status: '00'
+        expiry_date: '06/27'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: false
+      - number: '4557880000000020'
+        status: '00'
+        expiry_date: '07/27'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: true
+
+  # User for Cards V4 extraFields testing
+  - name: MARIA EXTRAFIELDS TEST
+    email: cards_extrafields@test-yape.com.pe
+    idc: '99999999'
+    documentNumber: '99999999'
+    cic: '00099999'
+    phone_number: '+51999999999'
+    user_type: customer
+    cards:
+      - number: '4557889900000001'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+        electronic_commerce: true
+        abroadUsageEnabled: true
+        accounts:
+          - number: '19312345678901'
+            type: 'AHORROS'
+            currency: 'soles'
+          - number: '1931234567890'
+            type: 'CORRIENTE'
+            currency: 'soles'
+      - number: '4557889900000002'
+        status: '00'
+        expiry_date: '06/27'
+        card_type_description: 'DIGITAL'
+        electronic_commerce: false
+        abroadUsageEnabled: false
+        accounts:
+          - number: '19387654321098'
+            type: 'AHORROS'
+            currency: 'dolares'
+          - number: '1938765432109'
+            type: 'MAESTRA'
+            currency: 'soles'
+          - number: '1939999888777'
+            type: 'CORRIENTE'
+            currency: 'dolares'
+
+  # ==================================================
+  # Sprint 3: Usuarios para testing de personalities
+  # ==================================================
+  
+  # Error Token (401)
+  - name: ERROR TOKEN TEST
+    email: cards_error_token@test-yape.com.pe
+    idc: '11111111'
+    cic: '00011111'
+    phone_number: '+51911111111'
+    personalities: ['YPCARD001']
+    user_type: customer
+    cards:
+      - number: '4557881111111111'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # Error Timeout (503)
+  - name: ERROR TIMEOUT TEST
+    email: cards_error_timeout@test-yape.com.pe
+    idc: '22222222'
+    cic: '00022222'
+    phone_number: '+51922222222'
+    personalities: ['YPCARD002']
+    user_type: customer
+    cards:
+      - number: '4557882222222222'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # IDC Inválido (400)
+  - name: IDC INVALIDO TEST
+    email: cards_idc_invalido@test-yape.com.pe
+    idc: '33333333'
+    cic: '00033333'
+    phone_number: '+51933333333'
+    personalities: ['YPCARD003']
+    user_type: customer
+    cards:
+      - number: '4557883333333333'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # Servicio No Disponible (500)
+  - name: SERVICIO NO DISPONIBLE TEST
+    email: cards_servicio_no_disponible@test-yape.com.pe
+    idc: '44444445'
+    cic: '00044445'
+    phone_number: '+51944444445'
+    personalities: ['YPCARD004']
+    user_type: customer
+    cards:
+      - number: '4557884444444445'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # Circuit Breaker 500
+  - name: CIRCUIT BREAKER 500 TEST
+    email: cards_circuit_breaker_500@test-yape.com.pe
+    idc: '55555556'
+    cic: '00055556'
+    phone_number: '+51955555556'
+    personalities: ['YPCARD005']
+    user_type: customer
+    cards:
+      - number: '4557885555555556'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # Circuit Breaker 503
+  - name: CIRCUIT BREAKER 503 TEST
+    email: cards_circuit_breaker_503@test-yape.com.pe
+    idc: '66666666'
+    cic: '00066666'
+    phone_number: '+51966666666'
+    personalities: ['YPCARD006']
+    user_type: customer
+    cards:
+      - number: '4557886666666666'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # Error Servicio Externo (409)
+  - name: ERROR SERVICIO EXTERNO TEST
+    email: cards_servicio_externo@test-yape.com.pe
+    idc: '77777777'
+    cic: '00077777'
+    phone_number: '+51977777777'
+    personalities: ['YPCARD007']
+    user_type: customer
+    cards:
+      - number: '4557887777777777'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # Error Backend (500)
+  - name: ERROR BACKEND TEST
+    email: cards_error_backend@test-yape.com.pe
+    idc: '88888887'
+    cic: '00088887'
+    phone_number: '+51988888887'
+    personalities: ['YPCARD008']
+    user_type: customer
+    cards:
+      - number: '4557888888888877'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # Error Datos Incorrectos (400)
+  - name: ERROR DATOS INCORRECTOS TEST
+    email: cards_datos_incorrectos@test-yape.com.pe
+    idc: '99999997'
+    cic: '00099997'
+    phone_number: '+51999999997'
+    personalities: ['YPCARD009']
+    user_type: customer
+    cards:
+      - number: '4557889999999977'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # Error Tipo Tarjeta (400)
+  - name: ERROR TIPO TARJETA TEST
+    email: cards_tipo_tarjeta@test-yape.com.pe
+    idc: '99999998'
+    cic: '00099998'
+    phone_number: '+51999999998'
+    personalities: ['YPCARD010']
+    user_type: customer
+    cards:
+      - number: '4557889999999988'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+
+  # ============================================
+  # Mibanco Test User (personality set dynamically by tests)
+  # ============================================
+  - name: 'MIBANCO TEST USER'
+    email: 'yaperod_mibanco1@test-yape.com.pe'
+    clientCode: 3032596
+    maxAmount: 10000
+    minAmount: 500
+    documentNumber: '12345678'
+    personalities: []
+
+  # ============================================
+  # CIAM Test Users
+  # ============================================
+  - name: 'CIAM ENROLLMENT TEST'
+    email: 'ciam_enrollment@test-yape.com.pe'
+    idc: '45678901'
+    documentNumber: '45678901'
+    phone_number: '+51987654321'
+    personalities: []
+
+  - name: 'CIAM AUTH TEST'  
+    email: 'ciam_auth@test-yape.com.pe'
+    idc: '45678902'
+    documentNumber: '45678902'
+    phone_number: '+51987654322'
+    personalities: []
+
+  # ============================================
+  # Atlas Test User
+  # ============================================
+  - name: 'ATLAS TRANSFER TEST'
+    email: 'atlas_transfer@test-yape.com.pe'
+    idc: '78901234'
+    cic: '00078901'
+    phone_number: '+51987654323'
+    personalities: []
+    cards:
+      - number: '4557881111222233'
+        status: '00'
+        expiry_date: '12/26'
+        card_type_description: 'PHYSICAL'
+        accounts:
+          - number: '19378901234567'
+            type: 'CUENTAS DE AHORROS'
+            currency: 'soles'
+            balance: '5000.00'
+
+  # ============================================
+  # Atlas User (YPATLS001)
+  # ============================================
+  
+  - name: 'LOPEZ SWAGENEGER JOSE'
+    description: 'Usuario con 1 TARJETA DÉBITO para testing Atlas transfers'
+    personalities: ['YPATLS001']
+    data_in_bcp: 'true'
+    card_usage: 'bcp_card'
+    cod_internacional: '+51'
+    idc: '154971534'
+    clientCode: 154971534
+    cic: '02799173'
+    phone_number: '944711836'
+    uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
+    platform: 'IOS'
+    version: "8.0"
+    device_token: 'automated_test_device_token_atlas_user'
+    device_type: 'PERSONAL'
+    phone_model: "iphone 11"
+    phone_manufacturer: "iphone"
+    email: 'pruebas_yapero@test-yape.com.pe'
+    password: '999999'
+    cards:
+      - number: '4555880895879546'
+        pin4: '4454'
+        expiry_date: '03/29'
+        status: '00'
+        cvv: '999'
+        usage: 'token'
+        visa_card_token: '4555880895879546'
+        accounts:
+          - number: '1911453410008'
+            currency: 'soles'
+            balance: '100000'
+            type: 'CUENTAS DE AHORROS'
+            subtype: ''
+            release_date: 'new'
+            status: 'active'

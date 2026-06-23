@@ -1,0 +1,86 @@
+{
+  "name": "fwk-yape-mocks",
+  "version": "1.0.0",
+  "description": "Mock service for Mibanco lending APIs - Flat structure (no NestJS)",
+  "author": "Yape QA Team",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node --loader ts-node/esm src/app.ts",
+    "dev": "AUTO_SEED=true node --loader ts-node/esm src/app.ts",
+    "start:dev": "nodemon --watch src --exec node --loader ts-node/esm src/app.ts",
+    "start:prod": "AUTO_SEED=true SEED_TYPE=test node dist/app.js",
+    "build": "rm -f tsconfig.tsbuildinfo && tsc && mkdir -p dist/data && cp -r data/*.yml dist/data/",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "test": "./test/start-server-and-test.sh",
+    "test:watch": "jest --watch --config ./test/jest.config.json",
+    "test:cov": "jest --coverage --config ./test/jest.config.json",
+    "test:mibanco": "./test/run-tests.sh jest-mibanco.json",
+    "test:mibanco:offer": "./test/run-tests.sh jest-mibanco.json --testPathPattern=offer",
+    "test:mibanco:paydate": "./test/run-tests.sh jest-mibanco.json --testPathPattern=paydate",
+    "test:mibanco:simulate": "./test/run-tests.sh jest-mibanco.json --testPathPattern=simulate",
+    "test:mibanco:quote": "./test/run-tests.sh jest-mibanco.json --testPathPattern=quote",
+    "test:mibanco:register": "./test/run-tests.sh jest-mibanco.json --testPathPattern=register",
+    "test:ciam": "./test/run-tests.sh jest-ciam.json",
+    "test:ciam:biometry": "./test/run-tests.sh jest-ciam.json --testPathPattern=biometry",
+    "test:ciam:enrollment": "./test/run-tests.sh jest-ciam.json --testPathPattern=enrollment",
+    "test:ciam:authentication": "./test/run-tests.sh jest-ciam.json --testPathPattern=authentication",
+    "test:ciam:oauth": "./test/run-tests.sh jest-ciam.json --testPathPattern=oauth",
+    "test:ciam:facial-identifiers": "./test/run-tests.sh jest-ciam.json --testPathPattern=facial-identifiers",
+    "test:atlas": "./test/run-tests.sh jest-atlas.json",
+    "test:cards": "./test/run-tests.sh jest-cards.json",
+    "prepare": "cd .. && husky install fwk-yape-mocks/.husky",
+    "commit": "cz"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "fastify": "^4.29.1",
+    "js-yaml": "^4.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.6.1",
+    "@commitlint/config-conventional": "^18.6.3",
+    "@types/jest": "^29.5.11",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.10.6",
+    "@types/supertest": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "commitizen": "^4.3.1",
+    "cz-customizable": "^7.5.4",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.1.1",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

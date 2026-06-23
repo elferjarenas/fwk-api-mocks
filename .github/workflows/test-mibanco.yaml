@@ -1,0 +1,172 @@
+---
+# .github/workflows/test-mibanco.yaml
+#
+# Run Mibanco integration tests
+# Can be triggered manually or on PR
+
+name: Test Mibanco Endpoints
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to test against"
+        required: true
+        type: choice
+        options:
+          - local
+          - qa
+          - stg
+      
+      test_suite:
+        description: "Test suite to run"
+        required: true
+        type: choice
+        options:
+          - all           # Run all tests
+          - offer         # Only offer endpoint
+          - simulate      # Only simulate endpoint
+          - quote         # Only quote endpoint
+          - personalities # Test personality changes
+      
+      personality_scenario:
+        description: "Personality scenario to test (if test_suite=personalities)"
+        required: false
+        type: choice
+        options:
+          - all
+          - success
+          - errors-202
+          - errors-4xx
+          - errors-5xx
+
+  pull_request:
+    paths:
+      - 'src/modules/mibanco/**'
+      - 'tests/mibanco/**'
+      - '.github/workflows/test-mibanco.yaml'
+
+run-name: >
+  Test Mibanco ${{ github.event.inputs.test_suite || 'all' }} in
+  ${{ github.event.inputs.environment || 'qa' }} by @${{ github.actor }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Set environment URL
+        id: set_url
+        run: |
+          case "${{ github.event.inputs.environment || 'qa' }}" in
+            local)
+              echo "api_url=http://localhost:8000" >> $GITHUB_OUTPUT
+              echo "start_server=true" >> $GITHUB_OUTPUT
+              ;;
+            qa)
+              echo "api_url=https://fwk-yape-mocks-qa.yaperos.com" >> $GITHUB_OUTPUT
+              echo "start_server=false" >> $GITHUB_OUTPUT
+              ;;
+            stg)
+              echo "api_url=https://fwk-yape-mocks-stg.yaperos.com" >> $GITHUB_OUTPUT
+              echo "start_server=false" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      - name: Start local server (if local)
+        if: steps.set_url.outputs.start_server == 'true'
+        run: |
+          npm run start:dev &
+          echo "Waiting for server to start..."
+          sleep 10
+          curl http://localhost:8000/health || echo "Health check failed"
+
+      - name: Run tests
+        env:
+          API_URL: ${{ steps.set_url.outputs.api_url }}
+          TEST_SUITE: ${{ github.event.inputs.test_suite || 'all' }}
+          PERSONALITY_SCENARIO: ${{ github.event.inputs.personality_scenario || 'all' }}
+        run: |
+          case "$TEST_SUITE" in
+            all)
+              npm run test:mibanco
+              ;;
+            offer)
+              npm run test:mibanco:offer
+              ;;
+            simulate)
+              npm run test:mibanco:simulate
+              ;;
+            quote)
+              npm run test:mibanco:quote
+              ;;
+            personalities)
+              npm run test:mibanco:personalities -- --scenario=$PERSONALITY_SCENARIO
+              ;;
+          esac
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ github.event.inputs.environment || 'qa' }}-${{ github.run_number }}
+          path: |
+            coverage/
+            test-results/
+          retention-days: 30
+
+      - name: Generate test report
+        if: always()
+        run: |
+          echo "### Test Results Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Environment | \`${{ github.event.inputs.environment || 'qa' }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Test Suite | \`${{ github.event.inputs.test_suite || 'all' }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| API URL | \`${{ steps.set_url.outputs.api_url }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Triggered By | @${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Add test results if available
+          if [ -f "test-results/summary.json" ]; then
+            echo "### Detailed Results" >> $GITHUB_STEP_SUMMARY
+            cat test-results/summary.json | jq -r '.tests[] | "- [\(.status == "passed" && "✅" || "❌")] \(.name): \(.duration)ms"' >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let body = '## 🧪 Test Results\n\n';
+            body += '| Suite | Status | Duration |\n';
+            body += '|-------|--------|----------|\n';
+            
+            // Read test results and format
+            if (fs.existsSync('test-results/summary.json')) {
+              const results = JSON.parse(fs.readFileSync('test-results/summary.json'));
+              results.tests.forEach(test => {
+                const icon = test.status === 'passed' ? '✅' : '❌';
+                body += `| ${test.name} | ${icon} ${test.status} | ${test.duration}ms |\n`;
+              });
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

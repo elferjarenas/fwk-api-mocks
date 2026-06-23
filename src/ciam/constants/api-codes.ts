@@ -1,0 +1,18 @@
+export enum CiamPersonality {
+  // Success scenarios
+  ENROLLED = 'YPCIAMENR',
+  NOT_ENROLLED = 'YPCIAM000',
+  ENROLL_OK = 'YPCIAMENO',
+
+  // Error scenarios
+  INVALID_DOCTYPE = 'YPCIAM001',
+  TOKEN_EXPIRED = 'YPCIAM401',
+  INSUFFICIENT_HEADERS = 'YPCIAM403',
+  INTERNAL_ERROR = 'YPCIAM500',
+  
+  // Specific error codes
+  ERROR_ML0006 = 'YPCIAMM06',
+  ERROR_ML0017 = 'YPCIAMM17',
+  ERROR_ML0019 = 'YPCIAMM19',
+  ERROR_ML0038 = 'YPCIAMM38',
+}

@@ -1,0 +1,6 @@
+export enum AtlasPersonalityCode {
+  ATLAS_SUCCESS = 'YPATLS001',
+
+  ATLAS_LYNX_FRAUD = 'YPATLSLYX',
+  ATLAS_INSUFFICIENT_FUNDS = 'YPATLSINS',
+}

@@ -1,0 +1,163 @@
+---
+# .github/workflows/set-personality.yaml
+#
+# GitHub Action to set personality for Mibanco mock users
+# This allows QA to simulate different error scenarios without code changes
+#
+# Usage:
+# 1. Go to Actions tab
+# 2. Select "Set Mibanco Personality"
+# 3. Choose environment, user, and personality
+# 4. Run workflow
+
+name: Set Mibanco Personality
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to update"
+        required: true
+        type: choice
+        options:
+          - qa
+          - stg
+          - performance
+          - local
+      
+      user_email:
+        description: "User email to update personality"
+        required: true
+        type: choice
+        options:
+          - yaperod_mibanco1@test-yape.com.pe
+          - yaperod_mibanco2@test-yape.com.pe
+          - yaperod_mibanco3@test-yape.com.pe
+          - yaperod_mibanco4@test-yape.com.pe
+          - yaperod_mibanco5@test-yape.com.pe
+          - yaperod_mibanco6@test-yape.com.pe
+          - yaperod_mibanco7@test-yape.com.pe
+          - yaperod_mibanco8@test-yape.com.pe
+          - yaperod_mibanco9@test-yape.com.pe
+          - yaperod_mibanco10@test-yape.com.pe
+          - yaperoc_mibanco1@test-yape.com.pe
+          - yaperoc_mibanco2@test-yape.com.pe
+          - yaperoc_mibanco3@test-yape.com.pe
+          - yaperoc_mibanco4@test-yape.com.pe
+          - yaperoc_mibanco5@test-yape.com.pe
+          - yaperoc_mibanco6@test-yape.com.pe
+          - yaperoc_mibanco7@test-yape.com.pe
+          - yaperoc_mibanco8@test-yape.com.pe
+          - yaperoc_mibanco9@test-yape.com.pe
+          - yaperoc_mibanco10@test-yape.com.pe
+          - yaperoc_mibanco11@test-yape.com.pe
+          - yaperoc_mibanco12@test-yape.com.pe
+      
+      personality:
+        description: "Personality code to set"
+        required: true
+        type: choice
+        options:
+          - YPMIBANCO        # 200 - Success
+          - YPTPLI003        # 202 - No data
+          - YPNOTCONF        # 202-e01 - Lead not confirmed
+          - YPINVTERM        # 202-e02 - Invalid term
+          - YPPRODREG        # 202-e03 - Product registered
+          - YPMUNABLE        # 202-e04 - Unable to create lead
+          - YPMLDSOLD        # 202-e05 - Lead sold
+          - YPMBADREQ        # 400 - Bad Request
+          - YPUNAUTHZ        # 401 - Unauthorized
+          - YPTPLI004        # 404 - Call Failed
+          - YPNOALLOW        # 405 - Method Not Allowed
+          - YPTOOMREQ        # 429 - Too Many Requests
+          - YPSERVERR        # 500 - Server Error
+          - YPTPLI020        # 504 - Timeout
+
+run-name: >
+  Set personality '${{ github.event.inputs.personality }}' for
+  ${{ github.event.inputs.user_email }} in
+  ${{ github.event.inputs.environment }} by @${{ github.actor }}
+
+jobs:
+  set-personality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set environment URL
+        id: set_url
+        run: |
+          case "${{ github.event.inputs.environment }}" in
+            qa)
+              echo "api_url=https://fwk-yape-mocks-qa.yaperos.com" >> $GITHUB_OUTPUT
+              ;;
+            stg)
+              echo "api_url=https://fwk-yape-mocks-stg.yaperos.com" >> $GITHUB_OUTPUT
+              ;;
+            performance)
+              echo "api_url=https://fwk-yape-mocks-perf.yaperos.com" >> $GITHUB_OUTPUT
+              ;;
+            local)
+              echo "api_url=http://localhost:8000" >> $GITHUB_OUTPUT
+              ;;
+            *)
+              echo "Invalid environment"
+              exit 1
+              ;;
+          esac
+
+      - name: Update personality via API
+        run: |
+          response=$(curl -s -w "\n%{http_code}" -X PUT \
+            "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/${{ github.event.inputs.user_email }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "personality": "${{ github.event.inputs.personality }}"
+            }')
+          
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n -1)
+          
+          echo "Response: $body"
+          echo "HTTP Code: $http_code"
+          
+          if [ "$http_code" -eq 200 ]; then
+            echo "✅ Personality updated successfully"
+            echo "$body" | jq .
+          else
+            echo "❌ Failed to update personality"
+            echo "$body"
+            exit 1
+          fi
+
+      - name: Verify personality change
+        run: |
+          echo "### Personality Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Environment | \`${{ github.event.inputs.environment }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| User | \`${{ github.event.inputs.user_email }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Personality | \`${{ github.event.inputs.personality }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| API URL | \`${{ steps.set_url.outputs.api_url }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Updated By | @${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Test Request" >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo 'curl -X POST ${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar \' >> $GITHUB_STEP_SUMMARY
+          echo '  -H "Content-Type: application/json" \' >> $GITHUB_STEP_SUMMARY
+          echo '  -H "X-User-Email: ${{ github.event.inputs.user_email }}" \' >> $GITHUB_STEP_SUMMARY
+          echo '  -d '"'"'{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}'"'"'' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Send Slack notification (optional)
+        if: always()
+        run: |
+          # Uncomment and configure if you want Slack notifications
+          # curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
+          #   -H "Content-Type: application/json" \
+          #   -d '{
+          #     "text": "Personality updated: ${{ github.event.inputs.personality }} for ${{ github.event.inputs.user_email }} in ${{ github.event.inputs.environment }} by @${{ github.actor }}"
+          #   }'
+          echo "Slack notification disabled"

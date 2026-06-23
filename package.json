@@ -36,11 +36,15 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "fastify": "^4.29.1",
-    "js-yaml": "^4.2.0"
+    "js-yaml": "^4.2.0",
+    "uuid": "^10.0.0"
   },
   "config": {
     "commitizen": {
       "path": "cz-customizable"
+    },
+    "cz-customizable": {
+      "config": ".cz-config.cjs"
     }
   },
   "devDependencies": {
@@ -50,6 +54,7 @@
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.10.6",
     "@types/supertest": "^6.0.2",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^6.17.0",
     "@typescript-eslint/parser": "^6.17.0",
     "commitizen": "^4.3.1",

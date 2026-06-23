@@ -1,9 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd fwk-yape-mocks
-
-echo "→ Pre-push: corriendo TODOS los tests (103 tests)..."
+echo "→ Pre-push: corriendo TODOS los tests (97 tests)..."
 npm test
 status=$?
 

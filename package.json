@@ -1,8 +1,8 @@
 {
-  "name": "fwk-yape-mocks",
+  "name": "fwk-api-mocks",
   "version": "1.0.0",
-  "description": "Mock service for Mibanco lending APIs - Flat structure (no NestJS)",
-  "author": "Yape QA Team",
+  "description": "Mock service for multiple API squads - Flat structure (no NestJS)",
+  "author": "QA Team",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -30,7 +30,7 @@
     "test:ciam:facial-identifiers": "./test/run-tests.sh jest-ciam.json --testPathPattern=facial-identifiers",
     "test:atlas": "./test/run-tests.sh jest-atlas.json",
     "test:cards": "./test/run-tests.sh jest-cards.json",
-    "prepare": "cd .. && husky install fwk-yape-mocks/.husky",
+    "prepare": "cd .. && husky install fwk-api-mocks/.husky",
     "commit": "cz"
   },
   "dependencies": {

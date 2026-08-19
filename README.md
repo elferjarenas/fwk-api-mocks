@@ -814,4 +814,4 @@ Este proyecto es de uso interno de Yape.
 **Mantenido por**: Squad de Testing  
 **Repositorio**: [github.com/elferjarenas/fwk-api-mocks](https://github.com/elferjarenas/fwk-api-mocks)
 
-**Última actualización**: Junio 2026
+**Última actualización**: August 2026

@@ -1,10 +1,10 @@
 ---
-# .github/workflows/test-mibanco.yaml
+# .github/workflows/test-ticabank.yaml
 #
-# Run Mibanco integration tests
+# Run Ticabank integration tests
 # Can be triggered manually or on PR
 
-name: Test Mibanco Endpoints
+name: Test Ticabank Endpoints
 
 on:
   workflow_dispatch:
@@ -42,12 +42,12 @@ on:
 
   pull_request:
     paths:
-      - 'src/modules/mibanco/**'
-      - 'tests/mibanco/**'
-      - '.github/workflows/test-mibanco.yaml'
+      - 'src/modules/ticabank/**'
+      - 'tests/ticabank/**'
+      - '.github/workflows/test-ticabank.yaml'
 
 run-name: >
-  Test Mibanco ${{ github.event.inputs.test_suite || 'all' }} in
+  Test Ticabank ${{ github.event.inputs.test_suite || 'all' }} in
   ${{ github.event.inputs.environment || 'qa' }} by @${{ github.actor }}
 
 jobs:
@@ -75,11 +75,11 @@ jobs:
               echo "start_server=true" >> $GITHUB_OUTPUT
               ;;
             qa)
-              echo "api_url=https://fwk-yape-mocks-qa.yaperos.com" >> $GITHUB_OUTPUT
+              echo "api_url=https://fwk-api-mocks-qa.com" >> $GITHUB_OUTPUT
               echo "start_server=false" >> $GITHUB_OUTPUT
               ;;
             stg)
-              echo "api_url=https://fwk-yape-mocks-stg.yaperos.com" >> $GITHUB_OUTPUT
+              echo "api_url=https://fwk-api-mocks-stg.com" >> $GITHUB_OUTPUT
               echo "start_server=false" >> $GITHUB_OUTPUT
               ;;
           esac
@@ -100,19 +100,19 @@ jobs:
         run: |
           case "$TEST_SUITE" in
             all)
-              npm run test:mibanco
+              npm run test:ticabank
               ;;
             offer)
-              npm run test:mibanco:offer
+              npm run test:ticabank:offer
               ;;
             simulate)
-              npm run test:mibanco:simulate
+              npm run test:ticabank:simulate
               ;;
             quote)
-              npm run test:mibanco:quote
+              npm run test:ticabank:quote
               ;;
             personalities)
-              npm run test:mibanco:personalities -- --scenario=$PERSONALITY_SCENARIO
+              npm run test:ticabank:personalities -- --scenario=$PERSONALITY_SCENARIO
               ;;
           esac
 

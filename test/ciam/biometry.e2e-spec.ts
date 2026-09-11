@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { HttpStatusCodes } from '../../src/common/http-status-codes';
 import { TEST_CONFIG } from '../config/test-config';
-import { formatPersonalityChange } from '../helpers/yape-endpoints.helper';
+import { formatPersonalityChange } from '../helpers/testing-endpoints.helper';
 
 /**
  * CIAM Identification Methods Integration Tests
@@ -15,7 +15,7 @@ describe('CIAM Identification Methods API (e2e)', () => {
   
   // Use existing CIAM user from seed
   const USER_IDC = '45678901';
-  const USER_EMAIL = 'test003@test-yape.com.pe';
+  const USER_EMAIL = 'test003@test.com.pe';
 
   // Removed afterEach - keep test data across all tests in this suite
 
@@ -23,7 +23,7 @@ describe('CIAM Identification Methods API (e2e)', () => {
     it('should return 200 with FACIAL ENROLLED for enrolled user (YPCIAMENR)', async () => {
       // Set enrolled personality
       await request(baseUrl)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCIAMENR'));
 
@@ -31,7 +31,7 @@ describe('CIAM Identification Methods API (e2e)', () => {
         .get('/channel/ciam/mobile-login/v1/identification-methods')
         .set('Authorization', 'Bearer mock-token')
         .set('X-User-Email', USER_EMAIL)
-        .set('app-code', 'YAPE')
+        .set('app-code', 'TICO')
         .set('caller-name', 'MOBILE')
         .expect(HttpStatusCodes.OK);
 
@@ -46,7 +46,7 @@ describe('CIAM Identification Methods API (e2e)', () => {
     it('should return 200 with FACIAL NOT_ENROLLED for not enrolled user (YPCIAM000)', async () => {
       // Set not enrolled personality
       await request(baseUrl)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCIAM000'));
 
@@ -54,7 +54,7 @@ describe('CIAM Identification Methods API (e2e)', () => {
         .get('/channel/ciam/mobile-login/v1/identification-methods')
         .set('Authorization', 'Bearer mock-token')
         .set('X-User-Email', USER_EMAIL)
-        .set('app-code', 'YAPE')
+        .set('app-code', 'TICO')
         .set('caller-name', 'MOBILE')
         .expect(HttpStatusCodes.OK);
 
@@ -72,8 +72,8 @@ describe('CIAM Identification Methods API (e2e)', () => {
       const response = await request(baseUrl)
         .get('/channel/ciam/mobile-login/v2/identification-methods')
         .set('Authorization', 'Bearer mock-token')
-        .set('X-User-Email', 'test003@test-yape.com.pe')
-        .set('app-code', 'YAPE')
+        .set('X-User-Email', 'test003@test.com.pe')
+        .set('app-code', 'TICO')
         .set('caller-name', 'MOBILE')
         .expect(HttpStatusCodes.OK);
 
@@ -87,7 +87,7 @@ describe('CIAM Identification Methods API (e2e)', () => {
     it('should return 403 for missing Authorization header', async () => {
       await request(baseUrl)
         .get('/channel/ciam/mobile-login/v1/identification-methods')
-        .set('app-code', 'YAPE')
+        .set('app-code', 'TICO')
         .set('caller-name', 'MOBILE')
         .expect(HttpStatusCodes.FORBIDDEN);
     });
@@ -104,14 +104,14 @@ describe('CIAM Identification Methods API (e2e)', () => {
       await request(baseUrl)
         .get('/channel/ciam/mobile-login/v1/identification-methods')
         .set('Authorization', 'Bearer mock-token')
-        .set('app-code', 'YAPE')
+        .set('app-code', 'TICO')
         .expect(HttpStatusCodes.UNAUTHORIZED);
     });
 
     it('should return 500 for internal error personality (YPCIAM500)', async () => {
       // Set error personality
       await request(baseUrl)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCIAM500'));
 
@@ -119,7 +119,7 @@ describe('CIAM Identification Methods API (e2e)', () => {
         .get('/channel/ciam/mobile-login/v1/identification-methods')
         .set('Authorization', 'Bearer mock-token')
         .set('X-User-Email', USER_EMAIL)
-        .set('app-code', 'YAPE')
+        .set('app-code', 'TICO')
         .set('caller-name', 'MOBILE')
         .expect(HttpStatusCodes.INTERNAL_SERVER_ERROR);
     });

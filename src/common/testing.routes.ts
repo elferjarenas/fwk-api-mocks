@@ -6,7 +6,7 @@ import type { User } from '../types/user-types.js';
 import type { PersonalityCode } from '../common/personality-types.js';
 
 /**
- * Testing & Yape Routes Module
+ * Testing & Testing Routes Module
  * Ruby compatibility endpoints for data management
  */
 export function registerTestingRoutes(fastify: FastifyInstance): void {
@@ -56,8 +56,8 @@ export function registerTestingRoutes(fastify: FastifyInstance): void {
     });
   });
 
-  // GET /yape/data - Show all data (debug)
-  fastify.get('/yape/data', async (request, reply) => {
+  // GET /testing/data - Show all data (debug)
+  fastify.get('/testing/data', async (request, reply) => {
     const allUsers = UserService.getAllUsers();
     const usersDebug = allUsers.map(u => `${u.email} (IDC: ${u.idc}): [${(u.personalities || []).join(', ')}]`).join('<br>');
     
@@ -66,8 +66,8 @@ export function registerTestingRoutes(fastify: FastifyInstance): void {
       .send(`<h1>Personas: ${allUsers.length} users</h1><pre>${usersDebug}</pre>`);
   });
 
-  // POST /yape/populate - Populate users with YAML
-  fastify.post('/yape/populate', async (request, reply) => {
+  // POST /testing/populate - Populate users with YAML
+  fastify.post('/testing/populate', async (request, reply) => {
     try {
       const contentType = request.headers['content-type'] || 'application/yaml';
       let data: User[];
@@ -97,8 +97,8 @@ export function registerTestingRoutes(fastify: FastifyInstance): void {
     }
   });
 
-  // POST /yape/UpdatePersona - Update persona with YAML
-  fastify.post('/yape/UpdatePersona', async (request, reply) => {
+  // POST /testing/UpdatePersona - Update persona with YAML
+  fastify.post('/testing/UpdatePersona', async (request, reply) => {
     try {
       const yamlData = yaml.load(request.body as string) as any;
       const data = Array.isArray(yamlData) ? yamlData : (yamlData.users || []);
@@ -125,8 +125,8 @@ export function registerTestingRoutes(fastify: FastifyInstance): void {
     }
   });
 
-  // POST /yape/ChangeUserPersonality - Change user personality
-  fastify.post('/yape/ChangeUserPersonality', async (request, reply) => {
+  // POST /testing/ChangeUserPersonality - Change user personality
+  fastify.post('/testing/ChangeUserPersonality', async (request, reply) => {
     const body = request.body as string;
     const parts = body.split(',').map(s => s.trim());
     
@@ -159,8 +159,8 @@ export function registerTestingRoutes(fastify: FastifyInstance): void {
     }
   });
 
-  // POST /yape/ciam-simulation/clean-identity-val-actions
-  fastify.post('/yape/ciam-simulation/clean-identity-val-actions', async (request, reply) => {
+  // POST /testing/ciam-simulation/clean-identity-val-actions
+  fastify.post('/testing/ciam-simulation/clean-identity-val-actions', async (request, reply) => {
     try {
       UserService.clearAll();
       return reply.code(HttpStatusCodes.OK).send({ message: 'Identity validation actions cleared' });

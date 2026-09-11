@@ -35,7 +35,7 @@ export function processFacialVerification(body: Partial<FacialVerificationBody>,
     throw createValidationException(error?.message || 'Invalid request');
   }
 
-  // Get user by X-User-Email header (like Mibanco)
+  // Get user by X-User-Email header (like Ticabank)
   const userEmail = headers && (headers['x-user-email'] as string)?.toLowerCase();
   let user = userEmail ? UserRepository.getUser(userEmail) : undefined;
   

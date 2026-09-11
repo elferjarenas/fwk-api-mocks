@@ -80,7 +80,7 @@ export class CardDetailHelper {
    * 3. Sin NINGÚN personality de Cards (no contiene YPCARD) → retornar error 404 (tarjeta no encontrada)
    * 4. Con YPCARD001-010 → procesar el error específico correspondiente
    * 
-   * Un usuario puede tener múltiples personalities (ej: "YPMIBANCO,YPCARD000").
+   * Un usuario puede tener múltiples personalities (ej: "YTIKABANK,YPCARD000").
    * Cada squad verifica solo sus personalities sin bloquear otras funcionalidades.
    */
   private static handleSpecialCases(
@@ -105,13 +105,13 @@ export class CardDetailHelper {
     }
 
     // 2. Contiene YPCARD000 → flujo normal (success personality)
-    // Soporta múltiples personalities: ["YPCARD000", "YPMIBANCO"]
+    // Soporta múltiples personalities: ["YPCARD000", "YTIKABANK"]
     if (personalities.includes(CardsPersonality.CARDS_OK)) {
       return null;
     }
 
     // 3. NO contiene ninguna personality de Cards → 404 Not Found
-    // Esto cubre: ["YPMIBANCO"] o ["YPATLS001"] (sin YPCARD)
+    // Esto cubre: ["YTIKABANK"] o ["YPATLS001"] (sin YPCARD)
     if (!personalities.some((p: string) => p.includes('YPCARD'))) {
       return {
         status: HttpStatusCodes.NOT_FOUND,

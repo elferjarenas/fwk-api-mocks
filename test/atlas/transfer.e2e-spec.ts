@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { HttpStatusCodes } from '../../src/common/http-status-codes';
 import { TEST_CONFIG } from '../config/test-config';
-import { toYamlString, formatPersonalityChange } from '../helpers/yape-endpoints.helper';
+import { toYamlString, formatPersonalityChange } from '../helpers/testing-endpoints.helper';
 
 /**
  * E2E Tests for Atlas Account Transfers API
@@ -97,7 +97,7 @@ describe('Atlas Account Transfers API (e2e)', () => {
     it('should return 200 OK for successful transfer (YPATLS001)', async () => {
       // Set success personality
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(SENDER_IDC, 'YPATLS001'))
         .expect(HttpStatusCodes.OK);
@@ -133,7 +133,7 @@ describe('Atlas Account Transfers API (e2e)', () => {
     it('should return 500 with TL0003/LX0000 error (YPATLSLYX)', async () => {
       // Set Lynx fraud personality
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(SENDER_IDC, 'YPATLSLYX'))
         .expect(HttpStatusCodes.OK);
@@ -162,7 +162,7 @@ describe('Atlas Account Transfers API (e2e)', () => {
     it('should return 500 with TL0007/GN4904 error for insufficient funds (YPATLSINS)', async () => {
       // Set insufficient funds personality
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(SENDER_IDC, 'YPATLSINS'))
         .expect(HttpStatusCodes.OK);
@@ -191,7 +191,7 @@ describe('Atlas Account Transfers API (e2e)', () => {
     beforeEach(async () => {
       // Set success personality for validation tests
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(SENDER_IDC, 'YPATLS001'))
         .expect(HttpStatusCodes.OK);

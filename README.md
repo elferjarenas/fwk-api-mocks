@@ -4,7 +4,7 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-green)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.x-blue)](https://www.typescriptlang.org/)
 
-Mock service para APIs de múltiples squads (Mibanco, CIAM, Atlas, Cards) con soporte completo para testing E2E.
+Mock service para APIs de múltiples squads (Ticabank, CIAM, Atlas, Cards) con soporte completo para testing E2E.
 
 ## 📋 Tabla de Contenidos
 
@@ -95,7 +95,7 @@ git add . && npm run commit
 ```bash
 # ✅ CORRECTO
 git commit -m "feat(ciam): agregar endpoint de oauth"
-git commit -m "fix(mibanco): corregir validación en quote"
+git commit -m "fix(ticabank): corregir validación en quote"
 git commit -m "docs: actualizar readme con ejemplos"
 
 # ❌ INCORRECTO (bloqueado por hooks)
@@ -118,7 +118,7 @@ git commit -m "Fix: problema"                  # Sin scope
 
 ### Scopes disponibles
 - `ciam`: Endpoints CIAM
-- `mibanco`: Endpoints Mibanco
+- `ticabank`: Endpoints Ticabank
 - `atlas`: Endpoints Atlas
 - `common`: Código compartido
 - `tests`: Cambios en tests
@@ -157,7 +157,7 @@ data/seed-test.yml        # Usuarios aislados para tests (DEFAULT)
                           # Evita contaminación de datos entre squads
 
 data/seed-users.yml       # Usuarios base compartidos
-                          # Mibanco, CIAM, usuarios generales
+                          # Ticabank, CIAM, usuarios generales
 
 data/seed-performance.yml # Usuarios para pruebas de carga
                           # Copia de seed-users para stress testing
@@ -206,7 +206,7 @@ npm run test:cov       # Tests con cobertura
 npm run test:atlas     # Solo Atlas (6 tests)
 npm run test:cards     # Solo Cards (12 tests)
 npm run test:ciam      # Solo CIAM (30 tests)
-npm run test:mibanco   # Solo Mibanco (49 tests)
+npm run test:ticabank   # Solo Ticabank (49 tests)
 ```
 
 **Resultado esperado**: Todos los tests pasan al 100% tanto individualmente como agrupados.
@@ -215,7 +215,7 @@ npm run test:mibanco   # Solo Mibanco (49 tests)
 ✅ Atlas:    6/6   tests (100%)
 ✅ Cards:    12/12 tests (100%)
 ✅ CIAM:     30/30 tests (100%)
-✅ Mibanco:  49/49 tests (100%)
+✅ Ticabank:  49/49 tests (100%)
 ✅ npm test: 97/97 tests (100%)
 ```
 
@@ -354,7 +354,7 @@ Cards V4 soporta múltiples personalities para simular diferentes escenarios de 
 - Usuario **sin** personality → flujo normal (devuelve tarjetas si existen)
 - Usuario con `YPCARD000` → flujo normal (success personality)
 - Usuario con `YPCARD001-010` → simula el error correspondiente
-- Usuario con personality de **otro squad** (YPMIBANCO, YPCIAM) → retorna array vacío o 404
+- Usuario con personality de **otro squad** (YTIKABANK, YPCIAM) → retorna array vacío o 404
 
 > **Nota**: Las personalities son strings simples (no arrays). Un usuario solo tiene una personality activa a la vez.
 
@@ -365,7 +365,7 @@ curl "http://localhost:5050/bs-card-v4/customer-management/product-service/v4/ca
   -H "branch-office-code: BR001" \
   -H "user-code: USER001"
 
-# Usuario con YPMIBANCO (otro squad) - devuelve array vacío
+# Usuario con YTIKABANK (otro squad) - devuelve array vacío
 curl "http://localhost:5050/bs-card-v4/customer-management/product-service/v4/cards?personId=034636351000" \
   -H "branch-office-code: BR001" \
   -H "user-code: USER001"
@@ -498,8 +498,8 @@ fwk-api-mocks/
 │   │   ├── user-service.ts
 │   │   └── validators/
 │   │       └── base-validator.ts
-│   ├── mibanco/              # Endpoints Mibanco (Lending)
-│   │   ├── mibanco.routes.ts
+│   ├── ticabank/              # Endpoints Ticabank (Lending)
+│   │   ├── ticabank.routes.ts
 │   │   ├── constants/
 │   │   │   ├── api-codes.ts
 │   │   │   └── parameters.ts
@@ -508,7 +508,7 @@ fwk-api-mocks/
 │   │   │   ├── quote-dto.ts
 │   │   │   └── simulate-dto.ts
 │   │   ├── exceptions/
-│   │   │   ├── mibanco-exception.ts
+│   │   │   ├── ticabank-exception.ts
 │   │   │   └── exception-builder.ts
 │   │   ├── helpers/
 │   │   │   ├── offer.helper.ts
@@ -543,7 +543,7 @@ fwk-api-mocks/
 │   │   ├── enrollment.e2e-spec.ts
 │   │   ├── facial-identifiers.e2e-spec.ts
 │   │   └── oauth.e2e-spec.ts
-│   ├── mibanco/
+│   ├── ticabank/
 │   │   ├── offer.e2e-spec.ts
 │   │   ├── paydate.e2e-spec.ts
 │   │   ├── quote.e2e-spec.ts
@@ -552,7 +552,7 @@ fwk-api-mocks/
 │   ├── config/
 │   │   └── test-config.ts
 │   ├── helpers/
-│   │   └── yape-endpoints.helper.ts
+│   │   └── testing-endpoints.helper.ts
 │   ├── scripts/
 │   │   └── update-test-endpoints.cjs
 │   ├── global-setup.ts
@@ -560,7 +560,7 @@ fwk-api-mocks/
 │   ├── jest-atlas.json       # Config Atlas
 │   ├── jest-cards.json       # Config Cards
 │   ├── jest-ciam.json        # Config CIAM
-│   ├── jest-mibanco.json     # Config Mibanco
+│   ├── jest-ticabank.json     # Config Ticabank
 │   ├── run-tests.sh          # Script wrapper tests
 │   └── start-server-and-test.sh
 ├── commitlint.config.cjs     # Configuración commitlint
@@ -576,7 +576,7 @@ fwk-api-mocks/
 | **Atlas**    | 1 | 1 | 1 | 2 | 6 tests |
 | **Cards**    | 3 | 3 | 3 | 2 | 12 tests |
 | **CIAM**     | 8 | 4 | 1 | 2 | 30 tests |
-| **Mibanco**  | 5 | 5 | 3 | 2 | 49 tests |
+| **Ticabank** | 5 | 5 | 3 | 2 | 49 tests |
 | **Common**   | 2 | 3 | 1 | 1 | - |
 | **TOTAL**    | **19** | **16** | **9** | **9** | **97 tests** |
 
@@ -587,7 +587,7 @@ fwk-api-mocks/
 | Atlas    | 1        | 6     | 1/1       | ✅ 100% |
 | Cards    | 2        | 12    | 3/3       | ✅ 100% |
 | CIAM     | 5        | 30    | 8/8       | ✅ 100% |
-| Mibanco  | 5        | 49    | 5/5       | ✅ 100% |
+| Ticabank | 5        | 49    | 5/5       | ✅ 100% |
 | **TOTAL**| **13**   | **97**| **17/17** | **✅ 100%** |
 
 ### Ejecución de Tests
@@ -601,7 +601,7 @@ Todos los tests incluyen:
 
 ```bash
 # Todos los módulos funcionan INDIVIDUALMENTE y AGRUPADOS al 100%
-npm run test:mibanco  # 49/49 ✅
+npm run test:ticabank  # 49/49 ✅
 npm run test:ciam     # 30/30 ✅
 npm run test:cards    # 12/12 ✅
 npm run test:atlas    # 6/6 ✅
@@ -635,7 +635,7 @@ npm test              # 97/97 ✅
 
 | Squad | Método | Endpoint | Descripción |
 |-------|--------|----------|-------------|
-| **Atlas** | POST | `/api-transfer-yape/v1/transfer` | Realizar transferencia |
+| **Atlas** | POST | `/api-transfer-testing/v1/transfer` | Realizar transferencia |
 | **Cards** | GET | `/bs-card-v4/customer-management/product-service/v4/cards` | Listar tarjetas |
 | **Cards** | GET | `/bs-card-v4/customer-management/product-service/v4/cards/:id` | Detalle de tarjeta |
 | **Cards** | PATCH | `/bs-card-v4/customer-management/product-service/v4/cards/:id` | Actualizar configuración |
@@ -646,13 +646,13 @@ npm test              # 97/97 ✅
 | **CIAM** | POST | `/cas/oidc/accessToken` | Token OIDC |
 | **CIAM** | POST | `/auth/oauth/v2/token` | Token OAuth |
 | **CIAM** | GET | `/ux-biom-mobile-facial-overview-v1/channel/biom/v1/mobile-facial-overview/facial-identifiers` | Identificadores faciales |
-| **Mibanco** | POST | `/creditos-yape/sales/customer-offer/v1/lead/consultar` | Consultar oferta |
-| **Mibanco** | GET | `/creditos-yape/servicing/servicing-order/v1/simulacion/obtener-dias-pago` | Obtener días de pago |
-| **Mibanco** | GET | `/creditos-yape/servicing/servicing-order/v1/simulacion/generar` | Generar simulación |
-| **Mibanco** | POST | `/creditos-yape/servicing/servicing-order/v1/simulacion/cotizar` | Cotizar préstamo |
-| **Mibanco** | POST | `/creditos-yape/servicing/servicing-order/v1/orden-servicio/registrar` | Registrar orden |
-| **Testing** | POST | `/yape/ChangeUserPersonality` | Cambiar personality de usuario |
-| **Testing** | GET | `/yape/health` | Health check |
+| **Ticabank** | POST | `/creditos-ticabank/sales/customer-offer/v1/lead/consultar` | Consultar oferta |
+| **Ticabank** | GET | `/creditos-ticabank/servicing/servicing-order/v1/simulacion/obtener-dias-pago` | Obtener días de pago |
+| **Ticabank** | GET | `/creditos-ticabank/servicing/servicing-order/v1/simulacion/generar` | Generar simulación |
+| **Ticabank** | POST | `/creditos-ticabank/servicing/servicing-order/v1/simulacion/cotizar` | Cotizar préstamo |
+| **Ticabank** | POST | `/creditos-ticabank/servicing/servicing-order/v1/orden-servicio/registrar` | Registrar orden |
+| **Testing** | POST | `/testing/ChangeUserPersonality` | Cambiar personality de usuario |
+| **Testing** | GET | `/testing/health` | Health check |
 
 ### Servidor
 
@@ -660,7 +660,7 @@ npm test              # 97/97 ✅
 
 **Health Check**:
 ```bash
-curl http://localhost:5050/yape/health
+curl http://localhost:5050/testing/health
 # Response: {"status":"OK","service":"fwk-api-mocks"}
 ```
 
@@ -680,11 +680,11 @@ curl http://localhost:5050/yape/health
 
 ```bash
 # Stage 1: Tests rápidos (unit/integration)
-npm run test:mibanco:personalities
+npm run test:ticabank:personalities
 
 # Stage 2: Tests de negocio
 npm run test:ciam
-npm run test:mibanco
+npm run test:ticabank
 
 # Stage 3: Tests completos (pre-deploy)
 npm test
@@ -693,7 +693,7 @@ npm test
 ## 📖 Documentación Adicional
 
 - [CIAM Endpoints](./docs/ciam-endpoints.md) - Documentación detallada de endpoints CIAM
-- [Mibanco Endpoints](./docs/mibanco-endpoints.md) - Documentación detallada de endpoints Mibanco
+- [Ticabank Endpoints](./docs/ticabank-endpoints.md) - Documentación detallada de endpoints Ticabank
 - [Personalities](./docs/personalities.md) - Guía de personalities para testing
 
 ## 🤝 Contribuir
@@ -702,8 +702,8 @@ npm test
 
 1. **Fork y clonar el repositorio**
    ```bash
-   git clone https://github.com/elferjarenas/fwk-yape-mocks.git
-   cd fwk-yape-mocks
+   git clone https://github.com/elferjarenas/fwk-api-mocks.git
+   cd fwk-api-mocks
    npm install
    ```
 
@@ -802,12 +802,12 @@ Todos los commits y pushes son validados automáticamente:
 ### Recursos
 
 - 📖 [Documentación completa](./docs/)
-- 🐛 [Reportar issues](https://github.com/elferjarenas/fwk-yape-mocks/issues)
-- 💬 [Discusiones](https://github.com/elferjarenas/fwk-yape-mocks/discussions)
+- 🐛 [Reportar issues](https://github.com/elferjarenas/fwk-api-mocks/issues)
+- 💬 [Discusiones](https://github.com/elferjarenas/fwk-api-mocks/discussions)
 
 ## 📝 Licencia
 
-Este proyecto es de uso interno de Yape.
+Este proyecto es de uso personal para Testing.
 
 ---
 

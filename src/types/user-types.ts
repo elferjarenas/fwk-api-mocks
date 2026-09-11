@@ -69,7 +69,7 @@ export interface User {
   balance_query?: string;
   timeout_api?: string;
   allow_transaction?: string;
-  id_yape_account?: string;
+  id_tico_account?: string;
   loan_id?: string;
   loan_offer_installments?: string;
   loan_offer_cem?: string;

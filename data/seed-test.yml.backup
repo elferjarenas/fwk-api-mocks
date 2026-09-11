@@ -14,7 +14,7 @@ users:
     idc: '12345678'
     cic: '00012345'
     phone_number: '987654321'
-    email: 'cards_basic@test-yape.com.pe'
+    email: 'cards_basic@test.com.pe'
     password: '999999'
     personalities: ['YPCARD000']
     cards:
@@ -59,7 +59,7 @@ users:
     idc: '98765432'
     cic: '00098765'
     phone_number: '912345678'
-    email: 'cards_none@test-yape.com.pe'
+    email: 'cards_none@test.com.pe'
     password: '999999'
     personalities: ['YPCARD000']
     cards: []
@@ -71,7 +71,7 @@ users:
     idc: '55555555'
     cic: '00055555'
     phone_number: '955555555'
-    email: 'cards_detail@test-yape.com.pe'
+    email: 'cards_detail@test.com.pe'
     password: '999999'
     personalities: ['YPCARD000']
     cards:
@@ -104,7 +104,7 @@ users:
     idc: '88888888'
     cic: '00088888'
     phone_number: '988888888'
-    email: 'cards_pagination@test-yape.com.pe'
+    email: 'cards_pagination@test.com.pe'
     password: '999999'
     personalities: ['YPCARD000']
     cards:
@@ -231,7 +231,7 @@ users:
 
   # User for Cards V4 extraFields testing
   - name: MARIA EXTRAFIELDS TEST
-    email: cards_extrafields@test-yape.com.pe
+    email: cards_extrafields@test.com.pe
     idc: '99999999'
     documentNumber: '99999999'
     cic: '00099999'
@@ -274,7 +274,7 @@ users:
   
   # Error Token (401)
   - name: ERROR TOKEN TEST
-    email: cards_error_token@test-yape.com.pe
+    email: cards_error_token@test.com.pe
     idc: '11111111'
     cic: '00011111'
     phone_number: '+51911111111'
@@ -288,7 +288,7 @@ users:
 
   # Error Timeout (503)
   - name: ERROR TIMEOUT TEST
-    email: cards_error_timeout@test-yape.com.pe
+    email: cards_error_timeout@test.com.pe
     idc: '22222222'
     cic: '00022222'
     phone_number: '+51922222222'
@@ -302,7 +302,7 @@ users:
 
   # IDC Inválido (400)
   - name: IDC INVALIDO TEST
-    email: cards_idc_invalido@test-yape.com.pe
+    email: cards_idc_invalido@test.com.pe
     idc: '33333333'
     cic: '00033333'
     phone_number: '+51933333333'
@@ -316,7 +316,7 @@ users:
 
   # Servicio No Disponible (500)
   - name: SERVICIO NO DISPONIBLE TEST
-    email: cards_servicio_no_disponible@test-yape.com.pe
+    email: cards_servicio_no_disponible@test.com.pe
     idc: '44444445'
     cic: '00044445'
     phone_number: '+51944444445'
@@ -330,7 +330,7 @@ users:
 
   # Circuit Breaker 500
   - name: CIRCUIT BREAKER 500 TEST
-    email: cards_circuit_breaker_500@test-yape.com.pe
+    email: cards_circuit_breaker_500@test.com.pe
     idc: '55555556'
     cic: '00055556'
     phone_number: '+51955555556'
@@ -344,7 +344,7 @@ users:
 
   # Circuit Breaker 503
   - name: CIRCUIT BREAKER 503 TEST
-    email: cards_circuit_breaker_503@test-yape.com.pe
+    email: cards_circuit_breaker_503@test.com.pe
     idc: '66666666'
     cic: '00066666'
     phone_number: '+51966666666'
@@ -358,7 +358,7 @@ users:
 
   # Error Servicio Externo (409)
   - name: ERROR SERVICIO EXTERNO TEST
-    email: cards_servicio_externo@test-yape.com.pe
+    email: cards_servicio_externo@test.com.pe
     idc: '77777777'
     cic: '00077777'
     phone_number: '+51977777777'
@@ -372,7 +372,7 @@ users:
 
   # Error Backend (500)
   - name: ERROR BACKEND TEST
-    email: cards_error_backend@test-yape.com.pe
+    email: cards_error_backend@test.com.pe
     idc: '88888887'
     cic: '00088887'
     phone_number: '+51988888887'
@@ -386,7 +386,7 @@ users:
 
   # Error Datos Incorrectos (400)
   - name: ERROR DATOS INCORRECTOS TEST
-    email: cards_datos_incorrectos@test-yape.com.pe
+    email: cards_datos_incorrectos@test.com.pe
     idc: '99999997'
     cic: '00099997'
     phone_number: '+51999999997'
@@ -400,7 +400,7 @@ users:
 
   # Error Tipo Tarjeta (400)
   - name: ERROR TIPO TARJETA TEST
-    email: cards_tipo_tarjeta@test-yape.com.pe
+    email: cards_tipo_tarjeta@test.com.pe
     idc: '99999998'
     cic: '00099998'
     phone_number: '+51999999998'
@@ -413,10 +413,10 @@ users:
         card_type_description: 'PHYSICAL'
 
   # ============================================
-  # Mibanco Test User (personality set dynamically by tests)
+  # Ticabank Test User (personality set dynamically by tests)
   # ============================================
-  - name: 'MIBANCO TEST USER'
-    email: 'yaperod_mibanco1@test-yape.com.pe'
+  - name: 'TICABANK TEST USER'
+    email: 'testerdev_ticabank1@test.com.pe'
     clientCode: 3032596
     maxAmount: 10000
     minAmount: 500
@@ -427,14 +427,14 @@ users:
   # CIAM Test Users
   # ============================================
   - name: 'CIAM ENROLLMENT TEST'
-    email: 'ciam_enrollment@test-yape.com.pe'
+    email: 'ciam_enrollment@test.com.pe'
     idc: '45678901'
     documentNumber: '45678901'
     phone_number: '+51987654321'
     personalities: []
 
   - name: 'CIAM AUTH TEST'  
-    email: 'ciam_auth@test-yape.com.pe'
+    email: 'ciam_auth@test.com.pe'
     idc: '45678902'
     documentNumber: '45678902'
     phone_number: '+51987654322'
@@ -444,7 +444,7 @@ users:
   # Atlas Test User
   # ============================================
   - name: 'ATLAS TRANSFER TEST'
-    email: 'atlas_transfer@test-yape.com.pe'
+    email: 'atlas_transfer@test.com.pe'
     idc: '78901234'
     cic: '00078901'
     phone_number: '+51987654323'
@@ -481,7 +481,7 @@ users:
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'pruebas_yapero@test-yape.com.pe'
+    email: 'pruebas_tester@test.com.pe'
     password: '999999'
     cards:
       - number: '4555880895879546'

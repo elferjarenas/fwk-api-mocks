@@ -1,6 +1,6 @@
 # GitHub Actions - Personality Management
 
-Este directorio contiene workflows para gestionar personalities en el mock service de Mibanco.
+Este directorio contiene workflows para gestionar personalities en el mock service de Ticabank.
 
 ## 🎯 ¿Qué son Personalities?
 
@@ -10,7 +10,7 @@ Las **personalities** permiten simular diferentes escenarios de error sin modifi
 
 | Code | Status | Descripción |
 |------|--------|-------------|
-| `YPMIBANCO` | 200 | ✅ Success - Retorna oferta |
+| `YTIKABANK` | 200 | ✅ Success - Retorna oferta |
 | `YPTPLI003` | 202 | No hay datos disponibles |
 | `YPNOTCONF` | 202-e01 | Lead no confirmado |
 | `YPINVTERM` | 202-e02 | Solicitud vigente |
@@ -35,30 +35,30 @@ Cambia la personality de un usuario específico en un ambiente.
 
 **Uso:**
 1. Ve a la pestaña **Actions**
-2. Selecciona **"Set Mibanco Personality"**
+2. Selecciona **"Set Ticabank Personality"**
 3. Haz clic en **"Run workflow"**
 4. Completa los campos:
    - **Environment**: `qa`, `stg`, `performance`, o `local`
-   - **User Email**: Usuario a modificar (ej: `yaperod_mibanco2@test-yape.com.pe`)
+   - **User Email**: Usuario a modificar (ej: `testerdev_ticabank2@test.com.pe`)
    - **Personality**: Código de personality (ej: `YPUNAUTHZ`)
 5. Haz clic en **"Run workflow"**
 
 **Ejemplo de uso:**
 ```
 Environment: qa
-User Email: yaperod_mibanco2@test-yape.com.pe
+User Email: testerdev_ticabank2@test.com.pe
 Personality: YPTPLI020
 ```
 
 **Resultado:**
-- Usuario `yaperod_mibanco2` en QA retornará `504 Timeout`
+- Usuario `testerdev_ticabank2` en QA retornará `504 Timeout`
 - Otros usuarios no se ven afectados
 
 ---
 
 ### 2. Reset All Personalities (`reset-personalities.yaml`)
 
-Resetea todos los usuarios a la personality por defecto (`YPMIBANCO` - Success).
+Resetea todos los usuarios a la personality por defecto (`YTIKABANK` - Success).
 
 **Uso:**
 1. Ve a la pestaña **Actions**
@@ -79,13 +79,13 @@ Resetea todos los usuarios a la personality por defecto (`YPMIBANCO` - Success).
 ```bash
 # 1. Configurar personality via GitHub Action
 Environment: qa
-User: yaperod_mibanco2@test-yape.com.pe
+User: testerdev_ticabank2@test.com.pe
 Personality: YPUNAUTHZ
 
 # 2. Hacer request al API
-curl -X POST https://fwk-yape-mocks-qa.yaperos.com/creditos-yape/sales/customer-offer/v1/lead/consultar \
+curl -X POST https://fwk-api-mocks-qa.com/creditos-ticabank/sales/customer-offer/v1/lead/consultar \
   -H "Content-Type: application/json" \
-  -H "X-User-Email: yaperod_mibanco2@test-yape.com.pe" \
+  -H "X-User-Email: testerdev_ticabank2@test.com.pe" \
   -d '{
     "codigoPaisDocumento": "PE",
     "tipoDocumentoIdentidad": "C"
@@ -94,7 +94,7 @@ curl -X POST https://fwk-yape-mocks-qa.yaperos.com/creditos-yape/sales/customer-
 # 3. Response esperado
 {
   "status": 401,
-  "type": "creditos-yape/sales/customer-offer/v1/lead",
+  "type": "creditos-ticabank/sales/customer-offer/v1/lead",
   "title": "La solicitud posee un error de autorización.",
   "detail": "Unauthorized",
   "instance": "lead.consultar"
@@ -112,18 +112,18 @@ Si prefieres cambiar personalities manualmente:
 
 ```bash
 # Cambiar personality
-curl -X PUT https://fwk-yape-mocks-qa.yaperos.com/testing/mibanco/personality/yaperod_mibanco1@test-yape.com.pe \
+curl -X PUT https://fwk-api-mocks-qa.com/testing/ticabank/personality/testerdev_ticabank1@test.com.pe \
   -H "Content-Type: application/json" \
   -d '{"personality": "YPTPLI020"}'
 
 # Ver personality actual
-curl -X PUT https://fwk-yape-mocks-qa.yaperos.com/testing/mibanco/personality/yaperod_mibanco1@test-yape.com.pe/get
+curl -X PUT https://fwk-api-mocks-qa.com/testing/ticabank/personality/testerdev_ticabank1@test.com.pe/get
 
 # Resetear todas
-curl -X POST https://fwk-yape-mocks-qa.yaperos.com/testing/mibanco/personality/reset
+curl -X POST https://fwk-api-mocks-qa.com/testing/ticabank/personality/reset
 
 # Listar personalities disponibles
-curl -X PUT https://fwk-yape-mocks-qa.yaperos.com/testing/mibanco/personality/codes
+curl -X PUT https://fwk-api-mocks-qa.com/testing/ticabank/personality/codes
 ```
 
 ---
@@ -132,29 +132,29 @@ curl -X PUT https://fwk-yape-mocks-qa.yaperos.com/testing/mibanco/personality/co
 
 | Ambiente | URL Base |
 |----------|----------|
-| QA | `https://fwk-yape-mocks-qa.yaperos.com` |
-| STG | `https://fwk-yape-mocks-stg.yaperos.com` |
-| Performance | `https://fwk-yape-mocks-perf.yaperos.com` |
+| QA | `https://fwk-api-mocks-qa.com` |
+| STG | `https://fwk-api-mocks-stg.com` |
+| Performance | `https://fwk-api-mocks-perf.com` |
 | Local | `http://localhost:8000` |
 
 ---
 
 ## 📊 Usuarios Disponibles
 
-### Usuarios yaperod_mibanco (10 usuarios)
-- `yaperod_mibanco1@test-yape.com.pe` (clientCode: 3032596, maxAmount: 10000)
-- `yaperod_mibanco2@test-yape.com.pe` (clientCode: 2008016, maxAmount: 10000)
-- `yaperod_mibanco3@test-yape.com.pe` (clientCode: 2013036, maxAmount: 10000)
-- `yaperod_mibanco4@test-yape.com.pe` (clientCode: 2012566, maxAmount: 10000)
-- `yaperod_mibanco5@test-yape.com.pe` (clientCode: 2014598, maxAmount: 10000)
-- `yaperod_mibanco6@test-yape.com.pe` (clientCode: 2013036, maxAmount: 10000)
-- `yaperod_mibanco7@test-yape.com.pe` (clientCode: 2012566, maxAmount: 10000)
-- `yaperod_mibanco8@test-yape.com.pe` (clientCode: 2011053, maxAmount: 10000)
-- `yaperod_mibanco9@test-yape.com.pe` (clientCode: 2014598, maxAmount: 10000)
-- `yaperod_mibanco10@test-yape.com.pe` (clientCode: 2021598, maxAmount: 10000)
+### Usuarios testerdev_ticabank (10 usuarios)
+- `testerdev_ticabank1@test.com.pe` (clientCode: 3032596, maxAmount: 10000)
+- `testerdev_ticabank2@test.com.pe` (clientCode: 2008016, maxAmount: 10000)
+- `testerdev_ticabank3@test.com.pe` (clientCode: 2013036, maxAmount: 10000)
+- `testerdev_ticabank4@test.com.pe` (clientCode: 2012566, maxAmount: 10000)
+- `testerdev_ticabank5@test.com.pe` (clientCode: 2014598, maxAmount: 10000)
+- `testerdev_ticabank6@test.com.pe` (clientCode: 2013036, maxAmount: 10000)
+- `testerdev_ticabank7@test.com.pe` (clientCode: 2012566, maxAmount: 10000)
+- `testerdev_ticabank8@test.com.pe` (clientCode: 2011053, maxAmount: 10000)
+- `testerdev_ticabank9@test.com.pe` (clientCode: 2014598, maxAmount: 10000)
+- `testerdev_ticabank10@test.com.pe` (clientCode: 2021598, maxAmount: 10000)
 
-### Usuarios yaperoc_mibanco (12 usuarios)
-- `yaperoc_mibanco1@test-yape.com.pe` hasta `yaperoc_mibanco12@test-yape.com.pe`
+### Usuarios testercer_ticabank (12 usuarios)
+- `testercer_ticabank1@test.com.pe` hasta `testercer_ticabank12@test.com.pe`
 
 **Total: 22 usuarios disponibles**
 
@@ -162,15 +162,13 @@ curl -X PUT https://fwk-yape-mocks-qa.yaperos.com/testing/mibanco/personality/co
 
 ## ⚠️ Notas Importantes
 
-1. **Persistencia**: Las personalities se almacenan en memoria. Al reiniciar el servicio, vuelven al default (`YPMIBANCO`).
+1. **Persistencia**: Las personalities se almacenan en memoria. Al reiniciar el servicio, vuelven al default (`YTIKABANK`).
 
-2. **Isolation**: Cada usuario tiene su propia personality. Cambiar la personality de `yaperod_mibanco1` NO afecta a `yaperod_mibanco2`.
+2. **Isolation**: Cada usuario tiene su propia personality. Cambiar la personality de `testerdev_ticabank1` NO afecta a `testerdev_ticabank2`.
 
 3. **Ambientes**: Cada ambiente (QA/STG/Performance) tiene su propia instancia y personalities independientes.
 
 4. **No usar core-toggle-definitions**: Este proyecto NO usa toggles de Unleash. Todo se maneja vía personalities.
-
-5. **Compatibilidad Ruby**: Este sistema replica exactamente el comportamiento de `yape-wall-e-qa-mbrk` (Ruby).
 
 ---
 
@@ -181,11 +179,3 @@ curl -X PUT https://fwk-yape-mocks-qa.yaperos.com/testing/mibanco/personality/co
 - [ ] Agregar endpoint para listar personalities activas
 - [ ] Crear dashboard web para gestionar personalities
 - [ ] Integrar con Postman Collection automática
-
----
-
-## 📞 Soporte
-
-Para preguntas o issues:
-- Slack: #yape-qa-automation
-- GitHub Issues: [fwk-yape-mocks-ts](https://github.com/yaperos/fwk-yape-mocks-ts/issues)

@@ -45,13 +45,13 @@ jobs:
         run: |
           case "${{ github.event.inputs.environment }}" in
             qa)
-              echo "api_url=https://fwk-yape-mocks-qa.yaperos.com" >> $GITHUB_OUTPUT
+              echo "api_url=https://fwk-api-mocks-qa.com" >> $GITHUB_OUTPUT
               ;;
             stg)
-              echo "api_url=https://fwk-yape-mocks-stg.yaperos.com" >> $GITHUB_OUTPUT
+              echo "api_url=https://fwk-api-mocks-stg.com" >> $GITHUB_OUTPUT
               ;;
             performance)
-              echo "api_url=https://fwk-yape-mocks-perf.yaperos.com" >> $GITHUB_OUTPUT
+              echo "api_url=https://fwk-api-mocks-perf.com" >> $GITHUB_OUTPUT
               ;;
           esac
 
@@ -61,7 +61,7 @@ jobs:
           echo "### 🧪 Testing 401 Unauthorized Scenario" >> $GITHUB_STEP_SUMMARY
           
           # 1. Set personality
-          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/yaperod_mibanco2@test-yape.com.pe" \
+          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/ticabank/personality/testerdev_ticabank2@test.com.pe" \
             -H "Content-Type: application/json" \
             -d '{"personality": "YPUNAUTHZ"}' \
             -w "\n%{http_code}" -o /tmp/set_response.json
@@ -70,9 +70,9 @@ jobs:
           
           # 2. Test API
           response=$(curl -s -w "\n%{http_code}" -X POST \
-            "${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar" \
+            "${{ steps.set_url.outputs.api_url }}/creditos-ticabank/sales/customer-offer/v1/lead/consultar" \
             -H "Content-Type: application/json" \
-            -H "X-User-Email: yaperod_mibanco2@test-yape.com.pe" \
+            -H "X-User-Email: testerdev_ticabank2@test.com.pe" \
             -d '{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}')
           
           http_code=$(echo "$response" | tail -n1)
@@ -94,14 +94,14 @@ jobs:
         run: |
           echo "### 🧪 Testing 504 Timeout Scenario" >> $GITHUB_STEP_SUMMARY
           
-          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/yaperod_mibanco3@test-yape.com.pe" \
+          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/ticabank/personality/testerdev_ticabank3@test.com.pe" \
             -H "Content-Type: application/json" \
             -d '{"personality": "YPTPLI020"}'
           
           response=$(curl -s -w "\n%{http_code}" -X POST \
-            "${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar" \
+            "${{ steps.set_url.outputs.api_url }}/creditos-ticabank/sales/customer-offer/v1/lead/consultar" \
             -H "Content-Type: application/json" \
-            -H "X-User-Email: yaperod_mibanco3@test-yape.com.pe" \
+            -H "X-User-Email: testerdev_ticabank3@test.com.pe" \
             -d '{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}')
           
           http_code=$(echo "$response" | tail -n1)
@@ -118,14 +118,14 @@ jobs:
         run: |
           echo "### 🧪 Testing 202 Lead Not Confirmed Scenario" >> $GITHUB_STEP_SUMMARY
           
-          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/yaperod_mibanco4@test-yape.com.pe" \
+          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/ticabank/personality/testerdev_ticabank4@test.com.pe" \
             -H "Content-Type: application/json" \
             -d '{"personality": "YPNOTCONF"}'
           
           response=$(curl -s -w "\n%{http_code}" -X POST \
-            "${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar" \
+            "${{ steps.set_url.outputs.api_url }}/creditos-ticabank/sales/customer-offer/v1/lead/consultar" \
             -H "Content-Type: application/json" \
-            -H "X-User-Email: yaperod_mibanco4@test-yape.com.pe" \
+            -H "X-User-Email: testerdev_ticabank4@test.com.pe" \
             -d '{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}')
           
           http_code=$(echo "$response" | tail -n1)
@@ -149,14 +149,14 @@ jobs:
         run: |
           echo "### 🧪 Testing 200 Success Scenario" >> $GITHUB_STEP_SUMMARY
           
-          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/yaperod_mibanco1@test-yape.com.pe" \
+          curl -X PUT "${{ steps.set_url.outputs.api_url }}/testing/ticabank/personality/testerdev_ticabank1@test.com.pe" \
             -H "Content-Type: application/json" \
-            -d '{"personality": "YPMIBANCO"}'
+            -d '{"personality": "YTIKABANK"}'
           
           response=$(curl -s -w "\n%{http_code}" -X POST \
-            "${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar" \
+            "${{ steps.set_url.outputs.api_url }}/creditos-ticabank/sales/customer-offer/v1/lead/consultar" \
             -H "Content-Type: application/json" \
-            -H "X-User-Email: yaperod_mibanco1@test-yape.com.pe" \
+            -H "X-User-Email: testerdev_ticabank1@test.com.pe" \
             -d '{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}')
           
           http_code=$(echo "$response" | tail -n1)
@@ -184,5 +184,5 @@ jobs:
       - name: Cleanup - Reset personalities
         if: always()
         run: |
-          curl -X POST "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/reset"
+          curl -X POST "${{ steps.set_url.outputs.api_url }}/testing/ticabank/personality/reset"
           echo "🧹 Personalities reset to default" >> $GITHUB_STEP_SUMMARY

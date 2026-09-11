@@ -5,6 +5,6 @@
 
 /**
  * Generic personality code - can be from any business domain
- * Examples: MibancoPersonality, CiamPersonality, AtlasPersonality, etc.
+ * Examples: TicabankPersonality, CiamPersonality, AtlasPersonality, etc.
  */
 export type PersonalityCode = string;

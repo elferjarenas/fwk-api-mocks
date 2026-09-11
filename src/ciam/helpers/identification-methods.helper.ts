@@ -45,7 +45,7 @@ export function getIdentificationMethods(headers: Record<string, unknown>): Iden
     );
   }
 
-  // Get user by X-User-Email header (like Mibanco)
+  // Get user by X-User-Email header (like Ticabank)
   const userEmail = (headers['x-user-email'] as string)?.toLowerCase();
   let user = userEmail ? UserRepository.getUser(userEmail) : undefined;
   

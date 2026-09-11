@@ -4,13 +4,13 @@
 
 users:
   # ============================================
-  # Mibanco Users (YPTPLI personalities)
-  # Use YPMIBANCO for explicit 200 OK, or leave empty for default happy path
+  # Ticabank Users (YPTPLI personalities)
+  # Use YTIKABANK for explicit 200 OK, or leave empty for default happy path
   # ============================================
   
-  - name: 'YAPERO DESA MIBANCO1 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK1 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -20,11 +20,11 @@ users:
     uuid: '2AF21792-C96B-4732-9875-942C23BA61B2'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco1'
+    device_token: 'automated_test_device_token_testerdev_ticabank1'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco1@test-yape.com.pe'
+    email: 'testerdev_ticabank1@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797582545'
@@ -43,9 +43,9 @@ users:
         release_date: 'new'
         status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO2 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK2 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -55,11 +55,11 @@ users:
     uuid: '70FA754C-50C1-446F-AFCE-E974D81D295D'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco2'
+    device_token: 'automated_test_device_token_testerdev_ticabank2'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco2@test-yape.com.pe'
+    email: 'testerdev_ticabank2@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797571225'
@@ -78,9 +78,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO3 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK3 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -90,11 +90,11 @@ users:
     uuid: 'fa87fc1196d996c0'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco3'
+    device_token: 'automated_test_device_token_testerdev_ticabank3'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco3@test-yape.com.pe'
+    email: 'testerdev_ticabank3@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797581364'
@@ -113,9 +113,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO4 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK4 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -125,11 +125,11 @@ users:
     uuid: 'fa87fc1196d996c0'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco4'
+    device_token: 'automated_test_device_token_testerdev_ticabank4'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco4@test-yape.com.pe'
+    email: 'testerdev_ticabank4@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797595042'
@@ -148,9 +148,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO5 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK5 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -160,11 +160,11 @@ users:
     uuid: 'fa87fc1196d996c0'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco5'
+    device_token: 'automated_test_device_token_testerdev_ticabank5'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco5@test-yape.com.pe'
+    email: 'testerdev_ticabank5@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797583725'
@@ -183,9 +183,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO6 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK6 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -195,11 +195,11 @@ users:
     uuid: 'fa87fc1196d996c0'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco6'
+    device_token: 'automated_test_device_token_testerdev_ticabank6'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco6@test-yape.com.pe'
+    email: 'testerdev_ticabank6@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797593864'
@@ -218,9 +218,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO7 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK7 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -230,11 +230,11 @@ users:
     uuid: 'fa87fc1196d996c0'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco7'
+    device_token: 'automated_test_device_token_testerdev_ticabank7'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco7@test-yape.com.pe'
+    email: 'testerdev_ticabank7@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797595737'
@@ -253,9 +253,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO8 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK8 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -265,11 +265,11 @@ users:
     uuid: '5f0f23643adc6579'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco8'
+    device_token: 'automated_test_device_token_testerdev_ticabank8'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco8@test-yape.com.pe'
+    email: 'testerdev_ticabank8@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797596917'
@@ -288,9 +288,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO9 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK9 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -300,11 +300,11 @@ users:
     uuid: 'fa87fc1196d996c0'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco9'
+    device_token: 'automated_test_device_token_testerdev_ticabank9'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco9@test-yape.com.pe'
+    email: 'testerdev_ticabank9@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797605189'
@@ -323,9 +323,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO10 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK10 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -335,11 +335,11 @@ users:
     uuid: '395041C9-3017-4345-99CA-82625926C154'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco10'
+    device_token: 'automated_test_device_token_testerdev_ticabank10'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco10@test-yape.com.pe'
+    email: 'testerdev_ticabank10@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797606369'
@@ -358,9 +358,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO DESA MIBANCO11 THIRD PARTY LENDING'
+  - name: 'TESTER DEV TICABANK11 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -370,11 +370,11 @@ users:
     uuid: '395041C9-3017-4345-99CA-82625926C154'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco11'
+    device_token: 'automated_test_device_token_testerdev_ticabank11'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperod_mibanco11@test-yape.com.pe'
+    email: 'testerdev_ticabank11@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797570045'
@@ -393,9 +393,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO1 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK1 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -405,11 +405,11 @@ users:
     uuid: '2AF21792-C96B-4732-9875-942C23BA61B2'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco1'
+    device_token: 'automated_test_device_token_testerdev_ticabank1'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco1@test-yape.com.pe'
+    email: 'testerdev_ticabank1@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880792003893'
@@ -428,9 +428,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO2 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK2 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -440,11 +440,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco2'
+    device_token: 'automated_test_device_token_testerdev_ticabank2'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco2@test-yape.com.pe'
+    email: 'testerdev_ticabank2@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880895880981'
@@ -463,9 +463,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO3 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK3 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -475,11 +475,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco3'
+    device_token: 'automated_test_device_token_testerdev_ticabank3'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco3@test-yape.com.pe'
+    email: 'testerdev_ticabank3@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880790140887'
@@ -498,9 +498,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO4 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK4 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -510,11 +510,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco4'
+    device_token: 'automated_test_device_token_testerdev_ticabank4'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco4@test-yape.com.pe'
+    email: 'testerdev_ticabank4@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880795730880'
@@ -533,9 +533,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO5 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK5 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -545,11 +545,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco5'
+    device_token: 'automated_test_device_token_testerdev_ticabank5'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco5@test-yape.com.pe'
+    email: 'testerdev_ticabank5@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880797437138'
@@ -568,9 +568,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO6 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK6 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -580,11 +580,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco6'
+    device_token: 'automated_test_device_token_testerdev_ticabank6'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco6@test-yape.com.pe'
+    email: 'testerdev_ticabank6@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880791228590'
@@ -603,9 +603,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO7 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK7 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -615,11 +615,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco7'
+    device_token: 'automated_test_device_token_testerdev_ticabank7'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco7@test-yape.com.pe'
+    email: 'testerdev_ticabank7@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880793797840'
@@ -638,9 +638,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO8 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK8 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -650,11 +650,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco8'
+    device_token: 'automated_test_device_token_testerdev_ticabank8'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco8@test-yape.com.pe'
+    email: 'testerdev_ticabank8@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880795215783'
@@ -673,9 +673,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO9 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK9 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -685,11 +685,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco9'
+    device_token: 'automated_test_device_token_testerdev_ticabank9'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco9@test-yape.com.pe'
+    email: 'testerdev_ticabank9@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880799176775'
@@ -708,9 +708,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO10 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK10 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -720,11 +720,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco10'
+    device_token: 'automated_test_device_token_testerdev_ticabank10'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco10@test-yape.com.pe'
+    email: 'testerdev_ticabank10@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880790574036'
@@ -743,9 +743,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO11 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK11 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -755,11 +755,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco11'
+    device_token: 'automated_test_device_token_testerdev_ticabank11'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco11@test-yape.com.pe'
+    email: 'testerdev_ticabank11@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880890456258'
@@ -778,9 +778,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO12 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK12 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -790,11 +790,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco12'
+    device_token: 'automated_test_device_token_testerdev_ticabank12'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco12@test-yape.com.pe'
+    email: 'testerdev_ticabank12@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880899098051'
@@ -813,9 +813,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO13 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK13 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -825,11 +825,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco13'
+    device_token: 'automated_test_device_token_testerdev_ticabank13'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco13@test-yape.com.pe'
+    email: 'testerdev_ticabank13@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880899214138'
@@ -848,9 +848,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO14 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK14 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -860,11 +860,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco14'
+    device_token: 'automated_test_device_token_testerdev_ticabank14'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco14@test-yape.com.pe'
+    email: 'testerdev_ticabank14@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880896411356'
@@ -883,9 +883,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO15 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK15 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -895,11 +895,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco15'
+    device_token: 'automated_test_device_token_testerdev_ticabank15'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco15@test-yape.com.pe'
+    email: 'testerdev_ticabank15@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880895878100'
@@ -918,9 +918,9 @@ users:
           release_date: 'new'
           status: 'active'
 
-  - name: 'YAPERO CERTI MIBANCO16 THIRD PARTY LENDING'
+  - name: 'TESTER CERT TICABANK16 USER'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
-    personality: 'YPMIBANCO'
+    personality: 'YTIKABANK'
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -930,11 +930,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco16'
+    device_token: 'automated_test_device_token_testerdev_ticabank16'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'yaperoc_mibanco16@test-yape.com.pe'
+    email: 'testerdev_ticabank16@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880895879546'
@@ -956,7 +956,6 @@ users:
   - name: 'LOPEZ SWAGENEGER JOSE'
     description: 'Usuario con 1 TARJETA DÉBITO (4557) con 1 CUENTA AHORROS SOLES (PRIMERA CUENTA)'
     personality: 'YCA_disOK'
-    personalities: ['YPATLS001']
     data_in_bcp: 'true'
     card_usage: 'bcp_card'
     cod_internacional: '+51'
@@ -966,11 +965,11 @@ users:
     uuid: '26094D21-A2B2-4F5F-9D32-5D615050E428'
     platform: 'IOS'
     version: "8.0"
-    device_token: 'automated_test_device_token_yapero_mibanco16'
+    device_token: 'automated_test_device_token_testerdev_ticabank16'
     device_type: 'PERSONAL'
     phone_model: "iphone 11"
     phone_manufacturer: "iphone"
-    email: 'pruebas_yapero@test-yape.com.pe'
+    email: 'pruebas_tester@test.com.pe'
     password: '999999'
     cards:
     - number: '4555880895879546'
@@ -989,7 +988,7 @@ users:
           release_date: 'new'
           status: 'active'
 # Test users minimal - para agregar a seed-test.yml
-  - name: 'YAPERO TEST CARDS 001'
+  - name: 'USER TEST CARDS 001'
     description: 'Usuario base para tests de Cards - 3 tarjetas'
     personality: ''
     data_in_bcp: 'true'
@@ -1005,7 +1004,7 @@ users:
     device_type: 'PERSONAL'
     phone_model: "iphone 12"
     phone_manufacturer: "iphone"
-    email: 'test001@test-yape.com.pe'
+    email: 'test001@test.com.pe'
     password: '999999'
     cards:
     - number: '4557881234567890'
@@ -1073,7 +1072,7 @@ users:
     device_type: 'PERSONAL'
     phone_model: "samsung galaxy s21"
     phone_manufacturer: "samsung"
-    email: 'test002@test-yape.com.pe'
+    email: 'test002@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880000111122'
@@ -1102,7 +1101,7 @@ users:
         release_date: 'new'
         status: 'active'
 
-  - name: 'YAPERO TEST CIAM 001'
+  - name: 'USER TEST CIAM 001'
     description: 'Usuario base para tests de CIAM Enrollment'
     personality: ''
     data_in_bcp: 'true'
@@ -1118,7 +1117,7 @@ users:
     device_type: 'PERSONAL'
     phone_model: "iphone 13"
     phone_manufacturer: "iphone"
-    email: 'test003@test-yape.com.pe'
+    email: 'test003@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880745678001'
@@ -1137,7 +1136,7 @@ users:
         release_date: 'new'
         status: 'active'
 
-  - name: 'YAPERO TEST CIAM 002'
+  - name: 'USER TEST CIAM 002'
     description: 'Usuario base para tests de CIAM Auth'
     personality: ''
     data_in_bcp: 'true'
@@ -1153,7 +1152,7 @@ users:
     device_type: 'PERSONAL'
     phone_model: "iphone 13"
     phone_manufacturer: "iphone"
-    email: 'test004@test-yape.com.pe'
+    email: 'test004@test.com.pe'
     password: '999999'
     cards:
     - number: '4557880745678002'

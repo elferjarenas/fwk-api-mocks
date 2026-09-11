@@ -1,7 +1,7 @@
 import { HttpStatusCodes } from '../../src/common/http-status-codes';
 import request from 'supertest';
 import { TEST_CONFIG } from '../config/test-config';
-import { formatPersonalityChange } from '../helpers/yape-endpoints.helper';
+import { formatPersonalityChange } from '../helpers/testing-endpoints.helper';
 
 const CARDS_DETAIL_ENDPOINT = '/bs-card-v4/customer-management/product-service/v4/cards';
 
@@ -12,7 +12,7 @@ describe('Cards V4 - Card Detail (E2E)', () => {
   afterEach(async () => {
     // Restore default personality after each test to avoid affecting other tests
     await request(BASE_URL)
-      .post('/yape/ChangeUserPersonality')
+      .post('/testing/ChangeUserPersonality')
       .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD000'));
   });
@@ -25,7 +25,7 @@ describe('Cards V4 - Card Detail (E2E)', () => {
     it('should return complete card detail with all fields', async () => {
       // Explicitly set YPCARD000 for success path
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD000'));
 
@@ -71,7 +71,7 @@ describe('Cards V4 - Card Detail (E2E)', () => {
 
     it('should return 503 for YPCARD002 (timeout)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD002'));
 
@@ -86,7 +86,7 @@ describe('Cards V4 - Card Detail (E2E)', () => {
 
     it('should return 500 for YPCARD008 (error backend)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD008'));
 

@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { HttpStatusCodes } from '../../src/common/http-status-codes';
 import { TEST_CONFIG } from '../config/test-config';
-import { formatPersonalityChange } from '../helpers/yape-endpoints.helper';
+import { formatPersonalityChange } from '../helpers/testing-endpoints.helper';
 
 /**
  * E2E Tests for CIAM OAuth Endpoints
@@ -15,9 +15,9 @@ const OIDC_ACCESS_TOKEN_ENDPOINT = '/cas/oidc/accessToken';
 describe('CIAM OAuth API (e2e)', () => {
   const baseUrl = TEST_CONFIG.baseUrl;
   const USER_IDC_ENROLLMENT = '45678901';
-  const USER_EMAIL_ENROLLMENT = 'test003@test-yape.com.pe'; // ciam_enrollment
+  const USER_EMAIL_ENROLLMENT = 'test003@test.com.pe'; // ciam_enrollment
   const USER_IDC_AUTH = '45678902';
-  const USER_EMAIL_AUTH = 'test004@test-yape.com.pe'; // ciam_auth
+  const USER_EMAIL_AUTH = 'test004@test.com.pe'; // ciam_auth
 
   describe('OAuth Token Generation', () => {
     describe('Success Scenarios', () => {
@@ -79,7 +79,7 @@ describe('CIAM OAuth API (e2e)', () => {
     describe('Success Scenarios - Enrollment', () => {
       it('should return 200 OK for successful enrollment (OIDC endpoint)', async () => {
         await request(baseUrl)
-          .post('/yape/ChangeUserPersonality')
+          .post('/testing/ChangeUserPersonality')
           .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC_ENROLLMENT, 'YPCIAM000'))
           .expect(HttpStatusCodes.OK);
 
@@ -106,7 +106,7 @@ describe('CIAM OAuth API (e2e)', () => {
     describe('Success Scenarios - Authentication', () => {
       it('should return 200 OK for successful authentication (OIDC endpoint)', async () => {
         await request(baseUrl)
-          .post('/yape/ChangeUserPersonality')
+          .post('/testing/ChangeUserPersonality')
           .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC_AUTH, 'YPCIAM000'))
           .expect(HttpStatusCodes.OK);
 
@@ -129,7 +129,7 @@ describe('CIAM OAuth API (e2e)', () => {
     describe('Error Scenarios (4xx/5xx)', () => {
       it('should return 500 for internal error personality (YPCIAM500)', async () => {
         await request(baseUrl)
-          .post('/yape/ChangeUserPersonality')
+          .post('/testing/ChangeUserPersonality')
           .set('Content-Type', 'text/plain')
           .send(formatPersonalityChange(USER_IDC_ENROLLMENT, 'YPCIAM500'));
 
@@ -144,7 +144,7 @@ describe('CIAM OAuth API (e2e)', () => {
     describe('Request Validation', () => {
       it('should return 400 for missing flowProcessId', async () => {
         await request(baseUrl)
-          .post('/yape/ChangeUserPersonality')
+          .post('/testing/ChangeUserPersonality')
           .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC_ENROLLMENT, 'YPCIAM000'))
           .expect(HttpStatusCodes.OK);
 

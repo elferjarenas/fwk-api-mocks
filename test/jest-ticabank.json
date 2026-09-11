@@ -1,0 +1,25 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "../",
+  "testRegex": "test/ticabank/.*\\.e2e-spec\\.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "collectCoverageFrom": ["src/ticabank/**/*.(t|j)s"],
+  "coverageDirectory": "./coverage/ticabank",
+  "testTimeout": 30000,
+  "verbose": true,
+  "moduleNameMapper": {
+    "^@common/(.*)$": "<rootDir>/src/common/$1",
+    "^@ticabank/(.*)$": "<rootDir>/src/ticabank/$1",
+    "^@repository/(.*)$": "<rootDir>/src/repository/$1",
+    "^@models/(.*)$": "<rootDir>/src/types/$1"
+  },
+  "globals": {
+    "ts-jest": {
+      "isolatedModules": true
+    }
+  }
+}

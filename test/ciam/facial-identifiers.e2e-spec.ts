@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { HttpStatusCodes } from '../../src/common/http-status-codes';
 import { TEST_CONFIG } from '../config/test-config';
-import { formatPersonalityChange } from '../helpers/yape-endpoints.helper';
+import { formatPersonalityChange } from '../helpers/testing-endpoints.helper';
 
 /**
  * E2E Tests for CIAM Facial Identifiers API
@@ -13,13 +13,13 @@ const FACIAL_IDENTIFIERS_ENDPOINT = '/ux-biom-mobile-facial-overview-v1/channel/
 describe('CIAM Facial Identifiers API (e2e)', () => {
   const baseUrl = TEST_CONFIG.baseUrl;
   const USER_IDC = '45678901';
-  const USER_EMAIL = 'test003@test-yape.com.pe'; // ciam_enrollment from seed-test.yml
+  const USER_EMAIL = 'test003@test.com.pe'; // ciam_enrollment from seed-test.yml
 
   describe('Success Scenarios', () => {
     it('should return 200 with facial identifiers list for enrolled user', async () => {
       // Set enrolled personality
       await request(baseUrl)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCIAMENR'));
 
@@ -42,7 +42,7 @@ describe('CIAM Facial Identifiers API (e2e)', () => {
     it('should return 200 with empty list for not enrolled user', async () => {
       // Set success personality (not enrolled)
       await request(baseUrl)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCIAM000'));
 
@@ -62,7 +62,7 @@ describe('CIAM Facial Identifiers API (e2e)', () => {
     it('should return 500 for internal error personality (YPCIAM500)', async () => {
       // Set error personality
       await request(baseUrl)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCIAM500'));
 

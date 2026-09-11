@@ -15,7 +15,7 @@ module.exports = {
   
   scopes: [
     { name: 'ciam' },
-    { name: 'mibanco' },
+    { name: 'tikabank' },
     { name: 'atlas' },
     { name: 'cards' },
     { name: 'common' },

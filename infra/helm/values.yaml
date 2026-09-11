@@ -1,6 +1,5 @@
 ---
 # Helm Chart Values
-# Uses: yaperos/helm-charts/yape-default
 
 deploymentCommand:
   - "/bin/sh"
@@ -28,11 +27,11 @@ readinessProbe:
 ingress_controller: nginx-f5
 
 ingresses:
-  - name: fwk-yape-mocks
+  - name: fwk-api-mocks
     paths:
-      - path: /fwk-yape-mocks/v1
+      - path: /fwk-api-mocks/v1
         pathType: Prefix
-        serviceName: fwk-yape-mocks
+        serviceName: fwk-api-mocks
         servicePort: 80
 
 serviceAccount:
@@ -43,16 +42,16 @@ podAnnotations:
   vault.hashicorp.com/agent-inject: "true"
   vault.hashicorp.com/agent-init-first: "true"
   vault.hashicorp.com/agent-pre-populate-only: "true"
-  vault.hashicorp.com/agent-inject-secret-vars: "app_envs/data/fwk-yape-mocks/vars"
+  vault.hashicorp.com/agent-inject-secret-vars: "app_envs/data/fwk-api-mocks/vars"
   vault.hashicorp.com/agent-inject-template-vars: |-
-    {{- with secret "app_envs/data/fwk-yape-mocks/vars" -}}
+    {{- with secret "app_envs/data/fwk-api-mocks/vars" -}}
     {{ range $k, $v := .Data.data }}
     export {{ $k }}='{{ $v }}'
     {{ end }}
     {{- end -}}
-  vault.hashicorp.com/agent-inject-secret-secrets: 'app_envs/data/fwk-yape-mocks/secrets'
+  vault.hashicorp.com/agent-inject-secret-secrets: 'app_envs/data/fwk-api-mocks/secrets'
   vault.hashicorp.com/agent-inject-template-secrets: |
-    {{- with secret "app_envs/data/fwk-yape-mocks/secrets" -}}
+    {{- with secret "app_envs/data/fwk-api-mocks/secrets" -}}
     {{ range $k, $v := .Data.data }}
     export {{ $k }}='{{ $v }}'
     {{ end }}
@@ -61,7 +60,7 @@ podAnnotations:
 serviceMonitor:
   enabled: true
   endpoints:
-    path: /fwk-yape-mocks/v1/metrics
+    path: /fwk-api-mocks/v1/metrics
 
 resources:
   requests:

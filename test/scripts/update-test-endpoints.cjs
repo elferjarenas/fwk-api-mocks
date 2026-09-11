@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 /**
- * Script para actualizar tests de /testing/* a /yape/*
  * Convierte:
- * - /testing/populate → /yape/populate (con YAML)
- * - /testing/personality → /yape/ChangeUserPersonality (con text/plain formato "idc,personality")
- * - /testing/data → /yape/data
+ * - /testing/populate → /testing/populate (con YAML)
+ * - /testing/personality → /testing/ChangeUserPersonality (con text/plain formato "idc,personality")
+ * - /testing/data → /testing/data
  */
 
 const fs = require('fs');
@@ -12,10 +11,10 @@ const path = require('path');
 
 const testDir = path.join(__dirname, '..');
 const testFiles = [
-  'mibanco/quote.e2e-spec.ts',
-  'mibanco/register.e2e-spec.ts',
-  'mibanco/offer.e2e-spec.ts',
-  'mibanco/simulate.e2e-spec.ts',
+  'ticabank/quote.e2e-spec.ts',
+  'ticabank/register.e2e-spec.ts',
+  'ticabank/offer.e2e-spec.ts',
+  'ticabank/simulate.e2e-spec.ts',
   'cards/cards-detail.e2e-spec.ts',
   'cards/cards-list.e2e-spec.ts',
   'atlas/transfer.e2e-spec.ts',
@@ -38,7 +37,7 @@ function updateTestFile(filePath) {
     const importMatch = content.match(/import.*from\s+['"].*TEST_CONFIG['"]/);
     if (importMatch) {
       const importLine = importMatch[0];
-      const newImport = `${importLine}\nimport { toYamlString, formatPersonalityChange } from '../helpers/yape-endpoints.helper';`;
+      const newImport = `${importLine}\nimport { toYamlString, formatPersonalityChange } from '../helpers/testing-endpoints.helper';`;
       content = content.replace(importLine, newImport);
       modified = true;
     }
@@ -46,7 +45,7 @@ function updateTestFile(filePath) {
 
   // 2. Reemplazar DELETE /testing/data
   if (content.includes("delete('/testing/data')")) {
-    content = content.replace(/\.delete\(['"]\/testing\/data['"]\)/g, ".delete('/yape/data')");
+    content = content.replace(/\.delete\(['"]\/testing\/data['"]\)/g, ".delete('/testing/data')");
     modified = true;
   }
 
@@ -75,7 +74,7 @@ function updateTestFile(filePath) {
       updatedUserData = userData.replace(/(clientCode:\s*\d+)/, `$1,\n      idc: '${clientCodeMatch[1]}'`);
     }
 
-    const replacement = `const yamlData = toYamlString([${updatedUserData}]);\n    await request(BASE_URL)\n      .post('/yape/populate')\n      .set('Content-Type', 'application/yaml')\n      .send(yamlData);`;
+    const replacement = `const yamlData = toYamlString([${updatedUserData}]);\n    await request(BASE_URL)\n      .post('/testing/populate')\n      .set('Content-Type', 'application/yaml')\n      .send(yamlData);`;
     
     content = content.replace(populateMatch[0], replacement);
     modified = true;
@@ -93,7 +92,7 @@ function updateTestFile(filePath) {
   // 5. Reemplazar PUT /testing/personality
   const personalityRegex = /\.put\(['"]\/testing\/personality['"]\)\s*\.send\(\{\s*email:\s*[^,]+,\s*personality:\s*['"]([^'"]+)['"]\s*\}\);/g;
   content = content.replace(personalityRegex, (match, personality) => {
-    return `.post('/yape/ChangeUserPersonality')\n        .set('Content-Type', 'text/plain')\n        .send(formatPersonalityChange(USER_IDC, '${personality}'));`;
+    return `.post('/testing/ChangeUserPersonality')\n        .set('Content-Type', 'text/plain')\n        .send(formatPersonalityChange(USER_IDC, '${personality}'));`;
   });
   
   if (content !== fs.readFileSync(fullPath, 'utf8')) {

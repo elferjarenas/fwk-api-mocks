@@ -1,16 +1,16 @@
 ---
 # .github/workflows/set-personality.yaml
 #
-# GitHub Action to set personality for Mibanco mock users
+# GitHub Action to set personality for Ticabank mock users
 # This allows QA to simulate different error scenarios without code changes
 #
 # Usage:
 # 1. Go to Actions tab
-# 2. Select "Set Mibanco Personality"
+# 2. Select "Set Ticabank Personality"
 # 3. Choose environment, user, and personality
 # 4. Run workflow
 
-name: Set Mibanco Personality
+name: Set Ticabank Personality
 
 on:
   workflow_dispatch:
@@ -30,35 +30,35 @@ on:
         required: true
         type: choice
         options:
-          - yaperod_mibanco1@test-yape.com.pe
-          - yaperod_mibanco2@test-yape.com.pe
-          - yaperod_mibanco3@test-yape.com.pe
-          - yaperod_mibanco4@test-yape.com.pe
-          - yaperod_mibanco5@test-yape.com.pe
-          - yaperod_mibanco6@test-yape.com.pe
-          - yaperod_mibanco7@test-yape.com.pe
-          - yaperod_mibanco8@test-yape.com.pe
-          - yaperod_mibanco9@test-yape.com.pe
-          - yaperod_mibanco10@test-yape.com.pe
-          - yaperoc_mibanco1@test-yape.com.pe
-          - yaperoc_mibanco2@test-yape.com.pe
-          - yaperoc_mibanco3@test-yape.com.pe
-          - yaperoc_mibanco4@test-yape.com.pe
-          - yaperoc_mibanco5@test-yape.com.pe
-          - yaperoc_mibanco6@test-yape.com.pe
-          - yaperoc_mibanco7@test-yape.com.pe
-          - yaperoc_mibanco8@test-yape.com.pe
-          - yaperoc_mibanco9@test-yape.com.pe
-          - yaperoc_mibanco10@test-yape.com.pe
-          - yaperoc_mibanco11@test-yape.com.pe
-          - yaperoc_mibanco12@test-yape.com.pe
+          - testerdev_ticabank1@test.com.pe
+          - testerdev_ticabank2@test.com.pe
+          - testerdev_ticabank3@test.com.pe
+          - testerdev_ticabank4@test.com.pe
+          - testerdev_ticabank5@test.com.pe
+          - testerdev_ticabank6@test.com.pe
+          - testerdev_ticabank7@test.com.pe
+          - testerdev_ticabank8@test.com.pe
+          - testerdev_ticabank9@test.com.pe
+          - testerdev_ticabank10@test.com.pe
+          - testerdev_ticabank1@test.com.pe
+          - testerdev_ticabank2@test.com.pe
+          - testerdev_ticabank3@test.com.pe
+          - testerdev_ticabank4@test.com.pe
+          - testerdev_ticabank5@test.com.pe
+          - testerdev_ticabank6@test.com.pe
+          - testerdev_ticabank7@test.com.pe
+          - testerdev_ticabank8@test.com.pe
+          - testerdev_ticabank9@test.com.pe
+          - testerdev_ticabank10@test.com.pe
+          - testerdev_ticabank11@test.com.pe
+          - testerdev_ticabank12@test.com.pe
       
       personality:
         description: "Personality code to set"
         required: true
         type: choice
         options:
-          - YPMIBANCO        # 200 - Success
+          - YTIKABANK        # 200 - Success
           - YPTPLI003        # 202 - No data
           - YPNOTCONF        # 202-e01 - Lead not confirmed
           - YPINVTERM        # 202-e02 - Invalid term
@@ -89,15 +89,6 @@ jobs:
         id: set_url
         run: |
           case "${{ github.event.inputs.environment }}" in
-            qa)
-              echo "api_url=https://fwk-yape-mocks-qa.yaperos.com" >> $GITHUB_OUTPUT
-              ;;
-            stg)
-              echo "api_url=https://fwk-yape-mocks-stg.yaperos.com" >> $GITHUB_OUTPUT
-              ;;
-            performance)
-              echo "api_url=https://fwk-yape-mocks-perf.yaperos.com" >> $GITHUB_OUTPUT
-              ;;
             local)
               echo "api_url=http://localhost:8000" >> $GITHUB_OUTPUT
               ;;
@@ -110,7 +101,7 @@ jobs:
       - name: Update personality via API
         run: |
           response=$(curl -s -w "\n%{http_code}" -X PUT \
-            "${{ steps.set_url.outputs.api_url }}/testing/mibanco/personality/${{ github.event.inputs.user_email }}" \
+            "${{ steps.set_url.outputs.api_url }}/testing/ticabank/personality/${{ github.event.inputs.user_email }}" \
             -H "Content-Type: application/json" \
             -d '{
               "personality": "${{ github.event.inputs.personality }}"
@@ -145,7 +136,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Test Request" >> $GITHUB_STEP_SUMMARY
           echo '```bash' >> $GITHUB_STEP_SUMMARY
-          echo 'curl -X POST ${{ steps.set_url.outputs.api_url }}/creditos-yape/sales/customer-offer/v1/lead/consultar \' >> $GITHUB_STEP_SUMMARY
+          echo 'curl -X POST ${{ steps.set_url.outputs.api_url }}/creditos-ticabank/sales/customer-offer/v1/lead/consultar \' >> $GITHUB_STEP_SUMMARY
           echo '  -H "Content-Type: application/json" \' >> $GITHUB_STEP_SUMMARY
           echo '  -H "X-User-Email: ${{ github.event.inputs.user_email }}" \' >> $GITHUB_STEP_SUMMARY
           echo '  -d '"'"'{"codigoPaisDocumento": "PE", "tipoDocumentoIdentidad": "C"}'"'"'' >> $GITHUB_STEP_SUMMARY

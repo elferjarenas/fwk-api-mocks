@@ -11,7 +11,7 @@
   "moduleNameMapper": {
     "^(\\.{1,2}/.*)\\.js$": "$1",
     "^@common/(.*)$": "<rootDir>/../src/common/$1",
-    "^@mibanco/(.*)$": "<rootDir>/../src/mibanco/$1",
+    "^@ticabank/(.*)$": "<rootDir>/../src/ticabank/$1",
     "^@ciam/(.*)$": "<rootDir>/../src/ciam/$1",
     "^@atlas/(.*)$": "<rootDir>/../src/atlas/$1",
     "^@repository/(.*)$": "<rootDir>/../src/repository/$1",

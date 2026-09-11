@@ -94,7 +94,7 @@ export class CardsListHelper {
    * - Si NO contiene ningún YPCARD: retorna array vacío (otro squad)
    * - Si contiene YPCARD###: evalúa error correspondiente
    * 
-   * Un usuario puede tener múltiples personalities (ej: "YPMIBANCO,YPCARD000").
+   * Un usuario puede tener múltiples personalities (ej: "YTIKABANK,YPCARD000").
    * Cada squad verifica solo sus personalities sin bloquear otras funcionalidades.
    */
   private static handleSpecialCases(user: any): {
@@ -130,13 +130,13 @@ export class CardsListHelper {
     }
 
     // Si contiene personality YPCARD000 (success), permite flujo normal
-    // Soporta múltiples personalities: ["YPCARD000", "YPMIBANCO"]
+    // Soporta múltiples personalities: ["YPCARD000", "YTIKABANK"]
     if (personalities.includes(CardsPersonality.CARDS_OK)) {
       return null;
     }
 
     // Si NO contiene ninguna personality de Cards, retorna vacío
-    // Esto cubre: ["YPMIBANCO"] o ["YPATLS001"] (sin YPCARD)
+    // Esto cubre: ["YTIKABANK"] o ["YPATLS001"] (sin YPCARD)
     if (!personalities.some((p: string) => p.includes('YPCARD'))) {
       return {
         status: HttpStatusCodes.OK,

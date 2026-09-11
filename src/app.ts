@@ -1,9 +1,9 @@
 /**
- * Yape Mocks Server - Refactored with Module Pattern
+ * Testing Mocks Server - Refactored with Module Pattern
  * Clean architecture with separated route modules
  * 
  * Improvements:
- * - Modular route organization (CIAM, Mibanco, Cards, Atlas, Testing)
+ * - Modular route organization (CIAM, Ticabank, Cards, Atlas, Testing)
  * - UserService layer (Dependency Inversion)
  * - RouteBuilder pattern (DRY)
  * - Clear separation of concerns
@@ -12,7 +12,7 @@
 import 'dotenv/config';
 import Fastify from 'fastify';
 import { UserRepository } from './repository/user-repository.js';
-import { registerMibancoRoutes } from './mibanco/mibanco.routes.js';
+import { registerTicabankRoutes } from './ticabank/ticabank.routes.js';
 import { registerCiamRoutes } from './ciam/ciam.routes.js';
 import { registerCardsRoutes } from './cards/cards.routes.js';
 import { registerAtlasRoutes } from './atlas/atlas.routes.js';
@@ -63,8 +63,8 @@ fastify.get('/health', async () => {
 // Register Route Modules (Modular Architecture)
 // =====================================================
 
-registerTestingRoutes(fastify);  // /testing/* and /yape/*
-registerMibancoRoutes(fastify);  // /creditos-yape/*
+registerTestingRoutes(fastify);  // /testing/*
+registerTicabankRoutes(fastify);  // /creditos-ticabank/*
 registerCiamRoutes(fastify);     // /channel/ciam/*, /cas/oidc/*, /auth/oauth/*
 registerCardsRoutes(fastify);    // /bs-card-v4/*
 registerAtlasRoutes(fastify);    // /support-core-account-transfer/*
@@ -89,8 +89,8 @@ const start = async () => {
     
     console.log(`🚀 Server started on port ${port}`);
     console.log(`📋 Health: http://localhost:${port}/health`);
-    console.log(`🧪 Testing: http://localhost:${port}/testing/mibanco/personality/list`);
-    console.log(`📊 Data: http://localhost:${port}/yape/data`);
+    console.log(`🧪 Testing: http://localhost:${port}/testing/state`);
+    console.log(`📊 Data: http://localhost:${port}/testing/data`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

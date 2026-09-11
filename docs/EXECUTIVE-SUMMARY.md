@@ -1,13 +1,13 @@
-# 🚀 fwk-yape-mocks - Presentación Ejecutiva
+# 🚀 fwk-api-mocks - Presentación Ejecutiva
 
 > **Mock Service Modular en TypeScript** - Migración desde Ruby (wall-e-qa-mbrk)
 
 ---
 
-## 📋 ¿Qué es fwk-yape-mocks?
+## 📋 ¿Qué es fwk-api-mocks?
 
 Mock service **unificado** que simula APIs de múltiples squads:
-- **Mibanco** (préstamos)
+- **Ticabank** (préstamos)
 - **CIAM** (autenticación/biometría)
 - **Atlas** (transferencias)
 - **Cards** (gestión de tarjetas)
@@ -38,19 +38,10 @@ Database:  In-memory (Maps)
 
 ## 🏗️ Arquitectura Modular
 
-### Antes (Ruby - Flat)
-```ruby
-utility/yape/            # 🔴 Todo mezclado
-  ├── account_helper.rb  #    Archivos 1000+ líneas
-  └── card_helper.rb
-utility/mibanco/
-  └── mibanco_helper.rb
-```
-
-### Ahora (TypeScript - DDD)
+### TypeScript - DDD
 ```typescript
 src/
-├── mibanco/            # ✅ Módulo auto-contenido
+├── ticabank/           # ✅ Módulo auto-contenido
 │   ├── constants/      #    Códigos de error
 │   ├── entities/       #    DTOs tipados
 │   ├── helpers/        #    Lógica de negocio
@@ -83,8 +74,8 @@ src/
 
 ```bash
 # 1. Clonar repositorio
-git clone https://github.com/your-org/fwk-yape-mocks.git
-cd fwk-yape-mocks
+git clone https://github.com/elferjarenas/fwk-api-mocks.git
+cd fwk-api-mocks
 
 # 2. Instalar dependencias (solo 3 packages)
 npm install
@@ -119,7 +110,7 @@ npm run dev
 
 **Paso 1: Build imagen**
 ```bash
-docker build -t fwk-yape-mocks:latest .
+docker build -t fwk-api-mocks:latest .
 ```
 
 **Paso 2: Run container**
@@ -128,8 +119,8 @@ docker run -d \
   -p 5050:5050 \
   -e NODE_ENV=production \
   -e AUTO_SEED=true \
-  --name fwk-yape-mocks \
-  fwk-yape-mocks:latest
+  --name fwk-api-mocks \
+  fwk-api-mocks:latest
 ```
 
 **Paso 3: Verificar health**
@@ -153,15 +144,15 @@ docker ps  # Debería mostrar "healthy"
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fwk-yape-mocks
+  name: fwk-api-mocks
   namespace: qa
 spec:
   replicas: 2
   template:
     spec:
       containers:
-      - name: fwk-yape-mocks
-        image: registry/fwk-yape-mocks:latest
+      - name: fwk-api-mocks
+        image: registry/fwk-api-mocks:latest
         ports:
         - containerPort: 5050
         env:
@@ -177,7 +168,7 @@ spec:
 ```bash
 kubectl apply -f k8s/deployment.yaml
 kubectl get pods -n qa
-kubectl logs -f deployment/fwk-yape-mocks -n qa
+kubectl logs -f deployment/fwk-api-mocks -n qa
 ```
 
 ---
@@ -191,13 +182,13 @@ npm run build
 
 # 2. Iniciar con PM2
 npm install -g pm2
-pm2 start dist/app.js --name fwk-yape-mocks
+pm2 start dist/app.js --name fwk-api-mocks
 pm2 save
 pm2 startup  # Auto-start en reboot
 
 # 3. Verificar
 pm2 status
-pm2 logs fwk-yape-mocks
+pm2 logs fwk-api-mocks
 ```
 
 ---
@@ -257,10 +248,10 @@ Códigos que simulan diferentes estados/errores **sin modificar código**:
 
 ```yaml
 # data/seed-test.yml
-- email: user@yape.com
+- email: user@test.com
   name: Juan Perez
   personalities:
-    - YPMIBANCO400   # Simula error 400 en Mibanco
+    - YTIKABANK400   # Simula error 400 en Ticabank
     - YPCIAM500      # Simula error 500 en CIAM
     - YPCARD003      # Simula tarjeta bloqueada
 ```
@@ -271,7 +262,7 @@ Códigos que simulan diferentes estados/errores **sin modificar código**:
 # 1. Asignar personality
 PUT /testing/personality
 {
-  "email": "user@yape.com",
+  "email": "user@test.com",
   "personalities": ["YPCARD003"]
 }
 
@@ -281,7 +272,7 @@ GET /bs-card-v4/.../cards?personId=12345678000
 
 # 3. Restaurar
 PUT /testing/personality
-{ "email": "user@yape.com", "personalities": [] }
+{ "email": "user@test.com", "personalities": [] }
 ```
 
 **Ventajas:**
@@ -300,7 +291,7 @@ PUT /testing/personality
 npm test
 
 # Por negocio
-npm run test:mibanco    # 49 tests
+npm run test:ticabank    # 49 tests
 npm run test:ciam       # 25 tests
 npm run test:atlas      # 6 tests
 npm run test:cards      # 17 tests
@@ -313,7 +304,7 @@ npm run test:cov
 
 ```
 test/
-├── mibanco/
+├── ticabank/
 │   ├── offer.e2e-spec.ts       ✅ 10 tests
 │   ├── simulate.e2e-spec.ts    ✅ 12 tests
 │   └── quote.e2e-spec.ts       ✅ 15 tests
@@ -419,41 +410,41 @@ git push
 
 ## 🎓 Agregar Nuevo Negocio (1 hora)
 
-### Ejemplo: Agregar "Yapeos"
+### Ejemplo: Agregar "Tiqueos"
 
 **1. Crear estructura (1 comando)**
 ```bash
-mkdir -p src/yapeos/{constants,entities,exceptions,helpers,validators,support}
+mkdir -p src/tiqueos/{constants,entities,exceptions,helpers,validators,support}
 ```
 
 **2. Copiar patrón de otro negocio**
 ```bash
-# Usar Mibanco como template
-cp -r src/mibanco/validators/offer.validator.ts \
-      src/yapeos/validators/yapeo.validator.ts
+# Usar Ticabank como template
+cp -r src/ticabank/validators/offer.validator.ts \
+      src/tiqueos/validators/tiqueo.validator.ts
 
-cp -r src/mibanco/helpers/offer.helper.ts \
-      src/yapeos/helpers/yapeo.helper.ts
+cp -r src/ticabank/helpers/offer.helper.ts \
+      src/tiqueos/helpers/tiqueo.helper.ts
 ```
 
 **3. Adaptar código (15 min)**
 ```typescript
-// src/yapeos/helpers/yapeo.helper.ts
-export class YapeoHelper {
-  static async processYapeo(request: YapeoDto) {
+// src/tiqueos/helpers/tiqueo.helper.ts
+export class TiqueosHelper {
+  static async processTiqueo(request: TiqueoDto) {
     // Validar
-    const validator = new YapeoValidator(request);
+    const validator = new TiqueoValidator(request);
     if (!validator.valid()) throw new Error(...);
     
     // Buscar usuario
     const user = UserRepository.findByEmail(request.email);
     
     // Check personalities
-    if (user.personalities.includes('YPYAPE400')) {
+    if (user.personalities.includes('YPTICO400')) {
       throw createInsufficientFundsException();
     }
     
-    // Procesar yapeo
+    // Procesar tiqueo
     return { status: 'COMPLETED', ... };
   }
 }
@@ -461,20 +452,20 @@ export class YapeoHelper {
 
 **4. Registrar ruta en app.ts (5 min)**
 ```typescript
-import { YapeoHelper } from './yapeos/helpers/yapeo.helper.js';
+import { TiqueosHelper } from './tiqueos/helpers/tiqueo.helper.js';
 
-fastify.post('/yapeos/api/transfer', async (request, reply) => {
-  const result = await YapeoHelper.processYapeo(request.body);
+fastify.post('/tiqueos/api/transfer', async (request, reply) => {
+  const result = await TiqueosHelper.processTiqueo(request.body);
   return reply.send(result);
 });
 ```
 
 **5. Crear tests (20 min)**
 ```typescript
-// test/yapeos/yapeo.e2e-spec.ts
-it('should process yapeo successfully', async () => {
+// test/tiqueos/tiqueo.e2e-spec.ts
+it('should process tiqueo successfully', async () => {
   const response = await request(BASE_URL)
-    .post('/yapeos/api/transfer')
+    .post('/tiqueos/api/transfer')
     .send({ amount: 100, ... });
   
   expect(response.status).toBe(200);
@@ -552,7 +543,7 @@ import { Helper } from './helper.js';
 - **CONTRIBUTING.md** - Cómo contribuir
 
 ### Links
-- **Repo**: https://github.com/your-org/fwk-yape-mocks
+- **Repo**: https://github.com/your-org/fwk-api-mocks
 - **Slack**: #qa-mocks
 - **Jira**: FWK-MOCKS project
 
@@ -561,7 +552,7 @@ import { Helper } from './helper.js';
 npm start              # Iniciar servidor
 npm run dev            # Dev mode (hot reload)
 npm test               # Correr todos los tests
-npm run test:mibanco   # Tests de un negocio
+npm run test:ticabank   # Tests de un negocio
 npm run build          # Compilar TypeScript
 npm run commit         # Commit interactivo
 ```
@@ -606,8 +597,8 @@ npm run commit         # Commit interactivo
 - Onboarding 5x más fácil (documentación completa)
 
 ### Próximos Pasos
-1. ✅ Migración completada (Mibanco, CIAM, Atlas, Cards)
-2. 🔄 Agregar nuevos squads (Yapeos, Remesas, etc.)
+1. ✅ Migración completada (Ticabank, CIAM, Atlas, Cards)
+2. 🔄 Agregar nuevos squads (tiqueos, Remesas, etc.)
 3. 🚀 Deploy a producción (K8s)
 4. 📊 Monitoreo y observabilidad (Grafana)
 
@@ -616,5 +607,5 @@ npm run commit         # Commit interactivo
 **¿Preguntas?**
 
 📧 Contacto: #qa-mocks (Slack)  
-📖 Docs: https://github.com/your-org/fwk-yape-mocks  
+📖 Docs: https://github.com/your-org/fwk-api-mocks  
 🎫 Issues: JIRA FWK-MOCKS

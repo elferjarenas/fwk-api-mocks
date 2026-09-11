@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { HttpStatusCodes } from '../../src/common/http-status-codes';
 import { TEST_CONFIG } from '../config/test-config';
-import { formatPersonalityChange } from '../helpers/yape-endpoints.helper';
+import { formatPersonalityChange } from '../helpers/testing-endpoints.helper';
 
 /**
  * E2E Tests for CIAM Facial Verification (Authentication workflow)
@@ -13,7 +13,7 @@ const AUTHENTICATION_ENDPOINT = '/channel/ciam/mobile-login/v1/identification-me
 describe('CIAM Facial Verification - Authentication (e2e)', () => {
   const BASE_URL = TEST_CONFIG.baseUrl;
   const USER_IDC = '45678902'; // ciam_auth from seed-test.yml
-  const USER_EMAIL = 'test004@test-yape.com.pe';
+  const USER_EMAIL = 'test004@test.com.pe';
 
   // Valid base request body (authentication workflow)
   const validRequest = {
@@ -28,7 +28,7 @@ describe('CIAM Facial Verification - Authentication (e2e)', () => {
   describe('Success Scenarios', () => {
     it('should return 200 OK for successful authentication (no personality)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCIAM000'));
 
@@ -55,7 +55,7 @@ describe('CIAM Facial Verification - Authentication (e2e)', () => {
   describe('Error Scenarios (4xx/5xx)', () => {
     it('should return 401 for token expired (YPCIAM401)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC, 'YPCIAM401'))
         .expect(HttpStatusCodes.OK);
 
@@ -76,7 +76,7 @@ describe('CIAM Facial Verification - Authentication (e2e)', () => {
 
     it('should return 412 for blocked user (YPCIAMM19)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC, 'YPCIAMM19'))
         .expect(HttpStatusCodes.OK);
 
@@ -97,7 +97,7 @@ describe('CIAM Facial Verification - Authentication (e2e)', () => {
 
     it('should return 412 for blocked user ML0038 (YPCIAMM38)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC, 'YPCIAMM38'))
         .expect(HttpStatusCodes.OK);
 
@@ -118,7 +118,7 @@ describe('CIAM Facial Verification - Authentication (e2e)', () => {
 
     it('should return 500 for internal error (YPCIAM500)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC, 'YPCIAM500'))
         .expect(HttpStatusCodes.OK);
 
@@ -139,7 +139,7 @@ describe('CIAM Facial Verification - Authentication (e2e)', () => {
 
     it('should return 500 for ML0006 error (YPCIAMM06)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC, 'YPCIAMM06'))
         .expect(HttpStatusCodes.OK);
 
@@ -160,7 +160,7 @@ describe('CIAM Facial Verification - Authentication (e2e)', () => {
 
     it('should return 500 for ML0017 facial validation error (YPCIAMM17)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC, 'YPCIAMM17'))
         .expect(HttpStatusCodes.OK);
 
@@ -183,7 +183,7 @@ describe('CIAM Facial Verification - Authentication (e2e)', () => {
   describe('Request Validation', () => {
     it('should return 400 for missing flowProcessId', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain').send(formatPersonalityChange(USER_IDC, 'YPCIAM000'))
         .expect(HttpStatusCodes.OK);
 

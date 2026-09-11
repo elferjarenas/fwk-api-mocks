@@ -1,7 +1,7 @@
 import { HttpStatusCodes } from '../../src/common/http-status-codes';
 import request from 'supertest';
 import { TEST_CONFIG } from '../config/test-config';
-import { formatPersonalityChange } from '../helpers/yape-endpoints.helper';
+import { formatPersonalityChange } from '../helpers/testing-endpoints.helper';
 
 const CARDS_LIST_ENDPOINT = '/bs-card-v4/customer-management/product-service/v4/cards';
 
@@ -12,7 +12,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
   afterEach(async () => {
     // Restore default personality after each test to avoid affecting other tests
     await request(BASE_URL)
-      .post('/yape/ChangeUserPersonality')
+      .post('/testing/ChangeUserPersonality')
       .set('Content-Type', 'text/plain')
       .send(formatPersonalityChange(USER_IDC, 'YPCARD000'));
   });
@@ -25,7 +25,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
     it('should return list of 3 properly formatted cards', async () => {
       // Explicitly set YPCARD000 for success path
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD000'));
 
@@ -89,7 +89,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
 
     it('should return 401 for YPCARD001 (error token)', async () => {
       const personalityResponse = await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD001'));
       
@@ -108,7 +108,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
 
     it('should return 503 for YPCARD002 (timeout)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD002'));
 
@@ -124,7 +124,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
 
     it('should return 400 for YPCARD003 (IDC inválido)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD003'));
 
@@ -140,7 +140,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
 
     it('should return 500 for YPCARD004 (servicio no disponible)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD004'));
 
@@ -155,7 +155,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
 
     it('should return 500 for YPCARD005 (circuit breaker 500)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD005'));
 
@@ -170,7 +170,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
 
     it('should return 503 for YPCARD006 (circuit breaker 503)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD006'));
 
@@ -185,7 +185,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
 
     it('should return 409 for YPCARD007 (servicio externo)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD007'));
 
@@ -200,7 +200,7 @@ describe('Cards V4 - List Cards (E2E)', () => {
 
     it('should return 500 for YPCARD008 (error backend)', async () => {
       await request(BASE_URL)
-        .post('/yape/ChangeUserPersonality')
+        .post('/testing/ChangeUserPersonality')
         .set('Content-Type', 'text/plain')
         .send(formatPersonalityChange(USER_IDC, 'YPCARD008'));
 

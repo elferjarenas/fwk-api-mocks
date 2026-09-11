@@ -86,7 +86,7 @@ class UserRepositoryClass {
   }
   
   /**
-   * Get user by document number (CIAM/Mibanco)
+   * Get user by document number (CIAM/Ticabank)
    * First tries documentNumber field, then falls back to clientCode
    */
   getUserByDocument(documentNumber: string): User | undefined {
@@ -96,7 +96,7 @@ class UserRepositoryClass {
   }
   
   /**
-   * Get user by clientCode (Mibanco) - O(n) but small dataset
+   * Get user by clientCode (Ticabank) - O(n) but small dataset
    */
   getUserByClientCode(clientCode: number | string): User | undefined {
     const codeStr = clientCode.toString();

@@ -12,7 +12,7 @@ module.exports = {
     { value: 'chore',    name: 'chore:    Otros cambios (mantenimiento)' },
     { value: 'revert',   name: 'revert:   Revertir commit anterior' }
   ],
-  
+
   scopes: [
     { name: 'ciam' },
     { name: 'tikabank' },
@@ -23,14 +23,12 @@ module.exports = {
     { name: 'deps' },
     { name: 'config' }
   ],
-  
+
   allowCustomScopes: true,
   allowBreakingChanges: ['feat', 'fix', 'refactor', 'perf'],
-  
-  // Límite de caracteres
+
   subjectLimit: 72,
-  
-  // Skip ciertas preguntas
+
   skipQuestions: ['body', 'breaking', 'footer'],
   
   messages: {
@@ -41,3 +39,4 @@ module.exports = {
     confirmCommit: '¿Confirmar este commit?'
   }
 };
+

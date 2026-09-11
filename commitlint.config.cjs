@@ -10,3 +10,4 @@ module.exports = {
     'scope-case': [2, 'always', 'lower-case']
   }
 };
+
